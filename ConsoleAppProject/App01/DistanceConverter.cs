@@ -40,10 +40,10 @@ namespace ConsoleAppProject.App01
 
          // DECLARING THE VARIABLES 
         public double miles, meters, feet, kilometers, centimeters, yard, inches;
-        double fromDis;
-        double toDis;
-        string fromUnit;
-        string toUnit;
+        public double fromDis;
+        public double toDis;
+        public string fromUnit;
+        public string toUnit;
         
          // RUNNING THE METHODS THAT I CREATED
         public void Run()

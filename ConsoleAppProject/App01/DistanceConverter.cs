@@ -5,13 +5,14 @@ using System.Security.Cryptography.X509Certificates;
 namespace ConsoleAppProject.App01
 {
     /// <summary>
-    /// Please describe the main features of this App
+    /// This class will convert distance units into other units while allowing users to choose the unit measurements. 
     /// </summary>
     /// <author>
-    /// Derek version 0.1
+    /// Enkh-Amgalan Enkhbayar
     /// </author>
     public class DistanceConverter
     {
+         // CONSTANTS 
         public static double FEET_IN_MILE = 5280;
         public static double METERS_IN_MILE = 1609.34;
         public static double METERS_IN_FEET = 3.281;
@@ -37,11 +38,14 @@ namespace ConsoleAppProject.App01
         public static double FEET_IN_INCHES = 12;
         public static double MILES_IN_FEET = 5280;
 
+         // DECLARING THE VARIABLES 
         public double miles, meters, feet, kilometers, centimeters, yard, inches;
         double fromDis;
         double toDis;
         string fromUnit;
         string toUnit;
+        
+         // RUNNING THE METHODS THAT I CREATED
         public void Run()
         {
             OutputHeading();
@@ -57,13 +61,13 @@ namespace ConsoleAppProject.App01
 
 
 
-
+         // FIRST HEADER
         private void OutputHeading()
         {
             Console.WriteLine("Distance Converter By Enkh-Amgalan 'Entwan' Enkhbayar");
             Console.WriteLine("\t");
         }
-
+         // FIRST MENU
         public string FromUnitMenu()
         {
             Console.WriteLine("1. Miles");
@@ -75,6 +79,7 @@ namespace ConsoleAppProject.App01
             Console.WriteLine("7. Inches");
             string unit;
 
+             // RETURNING THE CHOICES
             do
             {
                 Console.WriteLine("Choose the unit of measurement > ");
@@ -113,6 +118,7 @@ namespace ConsoleAppProject.App01
                     Console.WriteLine("Invalid unit, try again!");
                 }
             }
+             // CHECKING POSSIBLE ANSWERS
             while
             (
               unit != "1" || unit != "2" || unit != "3" || unit != "4" || unit != "5" || unit != "6" || unit != "7" ||
@@ -123,7 +129,7 @@ namespace ConsoleAppProject.App01
             return null;
         }
 
-
+         // SECOND MENU 
         public string ToUnitMenu()
         {
             Console.WriteLine("Choose the unit of measurement ");
@@ -135,6 +141,7 @@ namespace ConsoleAppProject.App01
             Console.WriteLine("6. Yard");
             Console.WriteLine("7. Inches");
             string convert;
+             // RETURNING THE CHOICES
             do
             {
                 Console.WriteLine("Choose the unit of measurement > ");
@@ -173,6 +180,7 @@ namespace ConsoleAppProject.App01
                     Console.WriteLine("Invalid unit, try again!");
                 }
             }
+             // CHECKING POSSIBLE ANSWERS
             while 
             (
               convert != "1" || convert != "2" || convert != "3" || convert != "4" || convert != "5" || convert != "6" || convert != "7" || 
@@ -181,14 +189,14 @@ namespace ConsoleAppProject.App01
                
             return null;
         }
-
+         // ASKING USER FOR INPUT
         public int InputDistance(string prompt)
         {
             Console.WriteLine("Please enter the number of  " + prompt);
             return Convert.ToInt32(Console.ReadLine());
         }
 
-
+         // CONVERTING PROCESS
         public void ConvertDis()
         {
             if (fromUnit == "miles" && toUnit == "meters")
@@ -409,10 +417,12 @@ namespace ConsoleAppProject.App01
             }
 
         }
-            public void Output() 
-            {
+
+         //OUTPUT
+        public void Output() 
+        {
             Console.WriteLine(fromDis + " "+ fromUnit + " is " + toDis + " " + toUnit + " !" );
-            }
+        }
     }
 }
 

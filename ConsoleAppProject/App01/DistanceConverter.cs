@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConsoleAppProject.App01;
+using System;
 
 namespace ConsoleAppProject.App01
 {
@@ -12,111 +13,133 @@ namespace ConsoleAppProject.App01
     {
         public static double FEET_IN_MILE = 5280;
         public static double METERS_IN_MILE = 1609.34;
-        public static double KILOMETERS_IN_MILE = 1.609;
-        public static double INCHES_IN_MILE = 63360;
-        public static double CENTIMETERS_IN_MILE = 160900;
-        public double miles, meters, feet, kilometers, yards, inches, centimeters;
-
+        public static double METERS_IN_FEET = 3.281;
+        public double miles, meters, feet;
+        double fromDis;
+        double toDis;
+        string fromUnit;
+        string toUnit;
         public void Run()
         {
-            OutputHeading();
+            Console.WriteLine("Select the unit you would like to convert...");
+            fromUnit = FromUnitMenu();
+            Console.WriteLine("Select the unit you would like to convert it to...");
+            toUnit = ToUnitMenu();
 
-            // MILES INPUTS
-            InputMiles();
-
-            CalculateFeet();
-            OutputFeet();
-            CalculateMeters();
-            OutputMeters();
-            CalculateCentimeters();
-            OutputCentimeters();
-            CalculateKilometers();
-            OutputKilometers();
-            CalculateInches();
-            OutputInches();
-
-            // FEET INPUTS
-
-            InputFeet();
-
-            CalculateMiles2();
-            OutputMiles2();
-            CalculateMeters2();
-            OutputMeters2();
-            CalculateCentimeters2();
-            OutputCentimeters2();
-            CalculateKilometers2();
-            OutputKilometers2();
-            CalculateInches2();
-            OutputInches2();
+            fromDis = InputDistance(fromUnit);
+            ConvertDis();
         }
+
+
+
 
         private void OutputHeading()
         {
-            Console.Write("By Entwan Enkhbayar");
-        }
-    
-         //MILE INPUTS
-
-        private void InputMiles()
-        {
-            Console.Write("Please enter the number of miles ...");
-            string value = Console.ReadLine();
-            miles = Convert.ToDouble(value);
+            Console.Write("Distance Converter By Entwan Enkhbayar");
         }
 
-          //into feet
-        private void CalculateFeet()
+        public string FromUnitMenu()
         {
-            feet= miles*FEET_IN_MILE;
-        }
-        private void OutputFeet()
-        {
-            Console.Writeline(miles + "miles is " + feet + " feet!");
+            Console.WriteLine("Which unit would you like to convert ?");
+            Console.WriteLine("1. Miles");
+            Console.WriteLine("2. Meters");
+            Console.WriteLine("3. Feet");
+
+            string unitSt = Console.ReadLine();
+            int unit = 0;
+
+            if (!int.TryParse(unitSt, out unit) || (unit < 1 || unit > 6))
+            {
+                Console.WriteLine("Please enter valid unit choice from 1 to 3.");
+               
+            }
+            if (unit == 1)
+            {
+                return "miles";
+            }
+            else if (unit == 2)
+            {
+                return "meters";
+            }
+            else if (unit == 3)
+            {
+                return "feet";
+            }
+            return null;
         }
 
-          //into meters
-        private void CalculateMeters()
+
+        public string ToUnitMenu() 
         {
-            meters = miles * METERS_IN_MILE;
-        }
-        private void OutputMeters()
-        {
-            Console.Writeline(miles + "miles is " + meters + " meters!");
+                Console.WriteLine("Which unit would you like to convert the distance to ?");
+                Console.WriteLine("1. Miles");
+                Console.WriteLine("2. Meters");
+                Console.WriteLine("3. Feet");
+
+                string convertSt = Console.ReadLine();
+                int convert = 0;
+
+                if (!int.TryParse(convertSt, out convert) || (convert < 1 || convert > 6))
+                {
+                    Console.WriteLine("Please enter valid unit choice from 1 to 3.");
+                
+                }
+                if (convert == 1)
+                {
+                    return "miles";
+                }
+                else if (convert == 2)
+                {
+                    return "meters";
+                }
+                else if (convert == 3)
+                {
+                    return "feet";
+                }
+            return null;
         }
 
-          //into kilometers
-        private void CalculateKilometers()
+        public int InputDistance(string prompt)
         {
-            kilometers = miles * KILOMETERS_IN_MILE;
-        }
-        private void OutputKilometers()
-        {
-            Console.Writeline(miles + "miles is " + kilometers + " kilometers!");
+            Console.WriteLine("Please enter the number of  " + prompt);
+            return Convert.ToInt32(Console.ReadLine());
         }
 
-          //into inches
-        private void CalculateInches()
+
+        public void ConvertDis()
         {
-            inches = miles * INCHES_IN_MILE;
-        }
-        private void OutputInches()
-        {
-            Console.Writeline(miles + "miles is " + inches + " inches!");
+            if (fromUnit == "miles" || toUnit == "meters")
+            {
+                toDis = fromDis * METERS_IN_MILE;
+            }
+            if (fromUnit == "miles" || toUnit == "feet")
+            {
+                toDis = fromDis * FEET_IN_MILE;
+            }
+            if (fromUnit == "meters" || toUnit == "miles")
+            {
+                toDis = fromDis / FEET_IN_MILE;
+            }
+            if (fromUnit == "meters" || toUnit == "feet")
+            {
+                toDis = fromDis / METERS_IN_FEET;
+            }
+            if (fromUnit == "feet" || toUnit == "miles")
+            {
+                toDis = fromDis / FEET_IN_MILE;
+            }
+            if (fromUnit == "feet" || toUnit == "meters")
+            {
+                toDis = fromDis / METERS_IN_FEET;
+            }
+
         }
 
-        //into centimeters
-        private void CalculateCentimeters()
-        {
-            centimeters = miles * CENTIMETERS_IN_MILE;
-        }
-        private void OutputCentimeters()
-        {
-            Console.Writeline(miles + "miles is " + centimeters + " centimeters!");
+
         }
 
-        //FEET INPUTS
+    }
 
-        
 
-        
+
+

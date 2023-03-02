@@ -1,4 +1,5 @@
 ﻿using ConsoleAppProject.App01;
+using ConsoleAppProject.App02;
 using ConsoleAppProject.App03;
 using ConsoleAppProject.Helpers;
 using System;
@@ -22,15 +23,19 @@ namespace ConsoleAppProject
 
             Console.WriteLine();
             Console.WriteLine(" =================================================");
-            Console.WriteLine("    BNU CO453 Applications Programming 2022-2023! ");
+            Console.WriteLine("    Welcome to Console App Project by Entwan! ");
             Console.WriteLine(" =================================================");
             Console.WriteLine();
 
             DistanceConverter converter = new DistanceConverter();
+            BMI bmiCalc = new BMI();
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Welcome to Console App Project");
+            Console.WriteLine("\t");
             Console.WriteLine("  Choose the application by entering the number ");
             Console.WriteLine(" 1. Distance Converter ");
+            Console.WriteLine(" 2. BMI Calculator ");
+            Console.WriteLine("\t");
+            Console.Write("Answer : ");
             string choiceStr = Console.ReadLine();
             int choice = 0;
             if (!int.TryParse(choiceStr, out choice) || (choice < 1 || choice > 4))
@@ -40,7 +45,26 @@ namespace ConsoleAppProject
             }
             if (choice == 1)
             {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine();
+                Console.WriteLine(" =================================================");
+                Console.WriteLine("          Welcome to Distance Converter! ");
+                Console.WriteLine(" =================================================");
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Green;
                 converter.Run();
+
+            }
+            else if( choice == 2)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine();
+                Console.WriteLine(" =================================================");
+                Console.WriteLine("          Welcome to BMI Calculator! ");
+                Console.WriteLine(" =================================================");
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Green;
+                bmiCalc.Run();
             }
             
             

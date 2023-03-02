@@ -64,7 +64,7 @@ namespace ConsoleAppProject.App01
          // FIRST HEADER
         private void OutputHeading()
         {
-            Console.WriteLine("Distance Converter By Enkh-Amgalan 'Entwan' Enkhbayar");
+            Console.WriteLine("By Enkh-Amgalan 'Entwan' Enkhbayar");
             Console.WriteLine("\t");
         }
          // FIRST MENU
@@ -82,7 +82,9 @@ namespace ConsoleAppProject.App01
              // RETURNING THE CHOICES
             do
             {
+                Console.WriteLine("\t");
                 Console.WriteLine("Choose the unit of measurement > ");
+                Console.Write("Answer : ");
                 unit = Console.ReadLine();
                 if (unit == "1" || unit.ToLower() == "miles")
                 {
@@ -144,7 +146,9 @@ namespace ConsoleAppProject.App01
              // RETURNING THE CHOICES
             do
             {
+                Console.WriteLine("\t");
                 Console.WriteLine("Choose the unit of measurement > ");
+                Console.Write("Answer : ");
                 convert = Console.ReadLine();
                 if (convert == "1" || convert.ToLower() == "miles")
                 {
@@ -192,6 +196,7 @@ namespace ConsoleAppProject.App01
          // ASKING USER FOR INPUT
         public int InputDistance(string prompt)
         {
+            Console.WriteLine("\t");
             Console.WriteLine("Please enter the number of  " + prompt);
             return Convert.ToInt32(Console.ReadLine());
         }
@@ -213,7 +218,7 @@ namespace ConsoleAppProject.App01
             }
             else if (fromUnit == "meters" && toUnit == "miles")
             {
-                toDis = fromDis / FEET_IN_MILE;
+                toDis = fromDis / METERS_IN_MILE; 
             }
             else if (fromUnit == "meters" && toUnit == "meters")
             {
@@ -221,7 +226,7 @@ namespace ConsoleAppProject.App01
             }
             else if (fromUnit == "meters" && toUnit == "feet")
             {
-                toDis = fromDis / METERS_IN_FEET;
+                toDis = fromDis * METERS_IN_FEET;
             }
             else if (fromUnit == "feet" && toUnit == "miles")
             {
@@ -245,19 +250,19 @@ namespace ConsoleAppProject.App01
             }
             else if (fromUnit == "miles" && toUnit == "kilometers")
             {
-                toDis = fromDis / MILES_IN_KILOMETERS ;
+                toDis = fromDis * MILES_IN_KILOMETERS ;
             }
             else if (fromUnit == "yard" && toUnit == "kilometers")
             {
-                toDis = fromDis * YARD_IN_KILOMETERS;
+                toDis = fromDis / YARD_IN_KILOMETERS;
             }
             else if (fromUnit == "feet" && toUnit == "kilometers")
             {
-                toDis = fromDis * FEET_IN_KILOMETERS;
+                toDis = fromDis / FEET_IN_KILOMETERS;
             }
             else if (fromUnit == "inches" && toUnit == "kilometers")
             {
-                toDis = fromDis * INCHES_IN_KILOMETERS;
+                toDis = fromDis / INCHES_IN_KILOMETERS;
             }
             else if (fromUnit == "kilometers" && toUnit == "kilometers")
             {
@@ -273,7 +278,7 @@ namespace ConsoleAppProject.App01
             }
             else if (fromUnit == "yard" && toUnit == "meters")
             {
-                toDis = fromDis * YARD_IN_METERS;
+                toDis = fromDis / YARD_IN_METERS;
             }
             else if (fromUnit == "feet" && toUnit == "meters")
             {
@@ -281,7 +286,7 @@ namespace ConsoleAppProject.App01
             }
             else if (fromUnit == "inches" && toUnit == "meters")
             {
-                toDis = fromDis * INCHES_IN_METERS;
+                toDis = fromDis / INCHES_IN_METERS;
             }
             else if (fromUnit == "feet" && toUnit == "meters")
             {
@@ -293,27 +298,27 @@ namespace ConsoleAppProject.App01
             }
             else if (fromUnit == "kilometers" && toUnit == "centimeters")
             {
-                toDis = fromDis / CENTIMETERS_IN_KILOMETERS;
+                toDis = fromDis * CENTIMETERS_IN_KILOMETERS;
             }
             else if (fromUnit == "meters" && toUnit == "centimeters")
             {
-                toDis = fromDis / CENTIMETERS_IN_METERS;
+                toDis = fromDis * CENTIMETERS_IN_METERS;
             }
             else if (fromUnit == "miles" && toUnit == "centimeters")
             {
-                toDis = fromDis / MILES_IN_CENTIMETERS;
+                toDis = fromDis * MILES_IN_CENTIMETERS;
             }
             else if (fromUnit == "yard" && toUnit == "centimeters")
             {
-                toDis = fromDis / YARD_IN_CENTIMETERS;
+                toDis = fromDis * YARD_IN_CENTIMETERS;
             }
             else if (fromUnit == "feet" && toUnit == "centimeters")
             {
-                toDis = fromDis / FEET_IN_CENTIMETERS;
+                toDis = fromDis * FEET_IN_CENTIMETERS;
             }
             else if (fromUnit == "inches" && toUnit == "centimeters")
             {
-                toDis = fromDis / INCHES_IN_CENTIMETERS;
+                toDis = fromDis * INCHES_IN_CENTIMETERS;
             }
             else if (fromUnit == "centimeters" && toUnit == "centimeters")
             {
@@ -321,11 +326,11 @@ namespace ConsoleAppProject.App01
             }
             else if (fromUnit == "meters" && toUnit == "yard")
             {
-                toDis = fromDis / YARD_IN_METERS;
+                toDis = fromDis * YARD_IN_METERS;
             }
             else if (fromUnit == "kilometers" && toUnit == "yard")
             {
-                toDis = fromDis / YARD_IN_KILOMETERS;
+                toDis = fromDis * YARD_IN_KILOMETERS;
             }
             else if (fromUnit == "centimeters" && toUnit == "yard")
             {
@@ -333,15 +338,15 @@ namespace ConsoleAppProject.App01
             }
             else if (fromUnit == "miles" && toUnit == "yard")
             {
-                toDis = fromDis / MILES_IN_YARD;
+                toDis = fromDis * MILES_IN_YARD;
             }
             else if (fromUnit == "feet" && toUnit == "yard")
             {
-                toDis = fromDis *FEET_IN_YARD;
+                toDis = fromDis / FEET_IN_YARD;
             }
             else if (fromUnit == "inches" && toUnit == "yard")
             {
-                toDis = fromDis * INCHES_IN_YARD;
+                toDis = fromDis / INCHES_IN_YARD;
             }
             else if (fromUnit == "yard" && toUnit == "yard")
             {
@@ -349,15 +354,15 @@ namespace ConsoleAppProject.App01
             }
             else if (fromUnit == "kilometers" && toUnit == "inches")
             {
-                toDis = fromDis / INCHES_IN_KILOMETERS;
+                toDis = fromDis * INCHES_IN_KILOMETERS;
             }
             else if (fromUnit == "meters" && toUnit == "inches")
             {
-                toDis = fromDis / INCHES_IN_METERS;
+                toDis = fromDis * INCHES_IN_METERS;
             }
             else if (fromUnit == "centimeters" && toUnit == "inches")
             {
-                toDis = fromDis * INCHES_IN_CENTIMETERS;
+                toDis = fromDis / INCHES_IN_CENTIMETERS;
             }
             else if (fromUnit == "miles" && toUnit == "inches")
             {
@@ -365,11 +370,11 @@ namespace ConsoleAppProject.App01
             }
             else if (fromUnit == "yard" && toUnit == "inches")
             {
-                toDis = fromDis / INCHES_IN_YARD;
+                toDis = fromDis * INCHES_IN_YARD;
             }
             else if (fromUnit == "feet" && toUnit == "inches")
             {
-                toDis = fromDis / FEET_IN_INCHES;
+                toDis = fromDis * FEET_IN_INCHES;
             }
             else if (fromUnit == "inches" && toUnit == "inches")
             {
@@ -377,23 +382,23 @@ namespace ConsoleAppProject.App01
             }
             else if (fromUnit == "kilometers" && toUnit == "feet")
             {
-                toDis = fromDis / FEET_IN_KILOMETERS;
+                toDis = fromDis * FEET_IN_KILOMETERS;
             }
             else if (fromUnit == "centimeters" && toUnit == "feet")
             {
-                toDis = fromDis * FEET_IN_CENTIMETERS;
+                toDis = fromDis / FEET_IN_CENTIMETERS;
             }
             else if (fromUnit == "yard" && toUnit == "feet")
             {
-                toDis = fromDis / FEET_IN_YARD;
+                toDis = fromDis * FEET_IN_YARD;
             }
             else if (fromUnit == "inches" && toUnit == "feet")
             {
-                toDis = fromDis * FEET_IN_INCHES;
+                toDis = fromDis / FEET_IN_INCHES;
             }
             else if (fromUnit == "meters" && toUnit == "feet")
             {
-                toDis = fromDis / YARD_IN_METERS;
+                toDis = fromDis * YARD_IN_METERS;
             }
             else if (fromUnit == "feet" && toUnit == "feet")
             {
@@ -401,19 +406,19 @@ namespace ConsoleAppProject.App01
             }
             else if (fromUnit == "kilometers" && toUnit == "miles")
             {
-                toDis = fromDis * MILES_IN_KILOMETERS;
+                toDis = fromDis / MILES_IN_KILOMETERS;
             }
             else if (fromUnit == "centimeters" && toUnit == "miles")
             {
-                toDis = fromDis * MILES_IN_CENTIMETERS;
+                toDis = fromDis / MILES_IN_CENTIMETERS;
             }
             else if (fromUnit == "yard" && toUnit == "miles")
             {
-                toDis = fromDis * MILES_IN_YARD;
+                toDis = fromDis / MILES_IN_YARD;
             }
             else if (fromUnit == "inches" && toUnit == "miles")
             {
-                toDis = fromDis * MILES_IN_INCHES;
+                toDis = fromDis / MILES_IN_INCHES;
             }
 
         }
@@ -421,7 +426,12 @@ namespace ConsoleAppProject.App01
          //OUTPUT
         public void Output() 
         {
+            Console.WriteLine("\t");
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(fromDis + " "+ fromUnit + " is " + toDis + " " + toUnit + " !" );
+            Console.WriteLine("\t");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Thanks for using the App!");
         }
     }
 }

@@ -60,7 +60,7 @@ namespace ConsoleAppUnitTest1
 
                 converter.ConvertDis();
 
-                expectedOutput = 0.0001893939393939394;
+                expectedOutput = 0.0006213727366498068;
 
                 Assert.AreEqual(expectedOutput, converter.toDis);
             }
@@ -74,7 +74,7 @@ namespace ConsoleAppUnitTest1
 
                 converter.ConvertDis();
 
-                expectedOutput = 0.30478512648582745;
+                expectedOutput = 3.281;
 
                 Assert.AreEqual(expectedOutput, converter.toDis);
             }
@@ -92,6 +92,79 @@ namespace ConsoleAppUnitTest1
 
                 Assert.AreEqual(expectedOutput, converter.toDis);
             }
+            [TestMethod]
+            public void TestInchesToYard()
+            {
+                DistanceConverter converter = new DistanceConverter();
+                converter.fromUnit = "inches";
+                converter.toUnit = "yard";
+                converter.fromDis = 1;
+
+                converter.ConvertDis();
+
+                expectedOutput = 0.027777777777777776;
+
+                Assert.AreEqual(expectedOutput, converter.toDis);
+            }
+            [TestMethod]
+            public void TestYardToMiles()
+            {
+                DistanceConverter converter = new DistanceConverter();
+                converter.fromUnit = "yard";
+                converter.toUnit = "miles";
+                converter.fromDis = 10;
+
+                converter.ConvertDis();
+
+                expectedOutput = 0.005681818181818182;
+
+                Assert.AreEqual(expectedOutput, converter.toDis);
+            }
+            [TestMethod] 
+            public void TestFeetToCentimeters()
+            {
+                DistanceConverter converter = new DistanceConverter();
+                converter.fromUnit = "feet";
+                converter.toUnit = "centimeters";
+                converter.fromDis = 10;
+
+                converter.ConvertDis();
+
+                expectedOutput = 304.8;
+
+                Assert.AreEqual(expectedOutput, converter.toDis);
+            }
+            [TestMethod] 
+            public void TestCentimetersToInches()
+            {
+                DistanceConverter converter = new DistanceConverter();
+                converter.fromUnit = "centimeters";
+                converter.toUnit = "inches";
+                converter.fromDis = 10;
+
+                converter.ConvertDis();
+
+                expectedOutput = 3.937007874015748;
+
+                Assert.AreEqual(expectedOutput, converter.toDis);
+            }
+            [TestMethod] 
+            public void TestInchesToKilometers()
+            {
+                DistanceConverter converter = new DistanceConverter();
+                converter.fromUnit = "inches";
+                converter.toUnit = "kilometers";
+                converter.fromDis = 10;
+
+                converter.ConvertDis();
+
+                expectedOutput = 0.000254000508001016;
+
+                Assert.AreEqual(expectedOutput, converter.toDis);
+            }
+
+
+            
 
 
 

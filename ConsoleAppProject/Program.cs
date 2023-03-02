@@ -2,6 +2,7 @@
 using ConsoleAppProject.App03;
 using ConsoleAppProject.Helpers;
 using System;
+using System.Xml.Serialization;
 
 namespace ConsoleAppProject
 {
@@ -26,7 +27,23 @@ namespace ConsoleAppProject
             Console.WriteLine();
 
             DistanceConverter converter = new DistanceConverter();
-            converter.Run();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Welcome to Console App Project");
+            Console.WriteLine("  Choose the application by entering the number ");
+            Console.WriteLine(" 1. Distance Converter ");
+            string choiceStr = Console.ReadLine();
+            int choice = 0;
+            if (!int.TryParse(choiceStr, out choice) || (choice < 1 || choice > 4))
+            {
+                Console.WriteLine("Error! Try again");
+                return;
+            }
+            if (choice == 1)
+            {
+                converter.Run();
+            }
+            
+            
         }
     }
 }

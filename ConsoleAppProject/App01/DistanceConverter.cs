@@ -227,6 +227,12 @@ namespace ConsoleAppProject.App01
                     Console.WriteLine(" INVALID NUMBER!");
                     Console.ForegroundColor = ConsoleColor.Green;
                 }
+                if (input <= 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(" INVALID NUMBER!");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                }
 
             } while (input <= 0);
 

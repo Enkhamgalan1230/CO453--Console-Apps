@@ -21,6 +21,7 @@ namespace ConsoleAppProject.App02
         double heightInch;
         double weightStones;
         double weightP;
+        double Bmi2;
 
         // RUNNING THE METHODS THAT I CREATED
         public void Run()
@@ -352,42 +353,42 @@ namespace ConsoleAppProject.App02
             double height = heightFeet * 12 + heightInch;
             double weight = weightStones * 14 + weightP;
 
-            double Bmi = weight / (height * height) * 703;
+            Bmi2 = weight / (height * height) * 703;
         }
 
         // IMPERIAL OUTPUT
 
         public void OutputImperial()
         {
-            if (Bmi < 18.50)
+            if (Bmi2 < 18.50)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Your BMI is " + Bmi + ", You are underweight !");
+                Console.WriteLine("Your BMI is " + Bmi2 + ", You are underweight !");
             }
-            else if (Bmi < 24.9)
+            else if (Bmi2 < 24.9)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Your BMI is " + Bmi + ", You are in normal range ! ");
+                Console.WriteLine("Your BMI is " + Bmi2 + ", You are in normal range ! ");
             }
-            else if (Bmi < 29.9)
+            else if (Bmi2 < 29.9)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Your BMI is " + Bmi + ", You are bit overweight ! ");
+                Console.WriteLine("Your BMI is " + Bmi2 + ", You are bit overweight ! ");
             }
-            else if (Bmi < 34.9)
+            else if (Bmi2 < 34.9)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Your BMI is " + Bmi + ", You are in Obese Class 1 ! ");
+                Console.WriteLine("Your BMI is " + Bmi2 + ", You are in Obese Class 1 ! ");
             }
-            else if (Bmi < 39.9)
+            else if (Bmi2 < 39.9)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Your BMI is " + Bmi + ", You are in Obese Class 2 ! ");
+                Console.WriteLine("Your BMI is " + Bmi2 + ", You are in Obese Class 2 ! ");
             }
-            else if (Bmi >= 40)
+            else if (Bmi2 >= 40)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Your BMI is " + Bmi + ", You are in Obese Class 3 ! ");
+                Console.WriteLine("Your BMI is " + Bmi2 + ", You are in Obese Class 3 ! ");
             }
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("\t");

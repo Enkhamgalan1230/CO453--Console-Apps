@@ -1,27 +1,34 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml.Serialization;
+using ConsoleAppProject.Helpers;
 
 namespace ConsoleAppProject.App02
 {
     /// <summary>
-    /// Please describe the main features of this App
+    /// This class will calcuate BMI for people and users are allowed to choose from two options which are imperial unit or metric unit. 
     /// </summary>
     /// <author>
-    /// Student Name version 0.1
+    /// Enkh-Amgalan Enkhbayar
     /// </author>
     public class BMI
     {
+        // Declaring variables so i can use it in different methods
         public double Bmi { get; private set; }
+        double weightm;
+        double heightm;
+        double heightFeet;
+        double heightInch;
+        double weightStones;
+        double weightP;
 
+        // RUNNING THE METHODS THAT I CREATED
         public void Run()
         {
             OutputHeading();
             Console.WriteLine("Select the measurement system you would like to use...");
             FirstMenu();
             
-
-
         }
 
         // FIRST HEADER
@@ -37,6 +44,8 @@ namespace ConsoleAppProject.App02
             Console.WriteLine("1. Metric units");
             Console.WriteLine("2. Imperial units");
             string choice;
+
+            // USER WILL CHOOSE THE UNIT HERE
             do
             {
                 Console.WriteLine("\t");
@@ -47,15 +56,23 @@ namespace ConsoleAppProject.App02
                 if (choice == "1" || choice.ToLower() == "metric")
                 {
                     Metric();
+                    MetricCalculation();
+                    OutputMetric();
                 }
                 else if (choice == "2" || choice.ToLower() == "imperial")
                 {
                     Imperial();
+                    ImperialCalculation();
+                    OutputImperial();
                 }
+                
+                // ERROR MESSAGE IF INVALID INPUT IS ENTERED
 
                 if(choice != "1" && choice != "2")
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error! Please enter valid choice! ");
+                    Console.ForegroundColor = ConsoleColor.Green;
                 }
 
             }
@@ -64,21 +81,90 @@ namespace ConsoleAppProject.App02
               choice != "1" && choice != "2" && choice != "metric" && choice != "imperial"
             );
         }
-        public void Metric()
+        public double Metric()
         {
-            Console.WriteLine("\t");
-            Console.WriteLine("Enter yout height in metres > ");
-            Console.Write("Answer : ");
-            string heightmStr = Console.ReadLine();
-            double heightm = Convert.ToDouble(heightmStr);
+            // DECLARING LOCAL VARIABLES
 
-            Console.WriteLine("\t");
-            Console.WriteLine("Enter yout weight in kilograms > ");
-            Console.Write("Answer : ");
-            string weightmStr = Console.ReadLine();
-            double weightm = Convert.ToInt32(weightmStr);
+            string heightmStr;
+            string weightmStr;
+            bool isValid;
 
-            double Bmi = weightm / (heightm * heightm);
+            // THIS SECTION WILL ASK HEIGHT IN METRES
+            // IF INVALID INPUT IS ENTERED IT WILL SHOW ERROR
+            do
+            {
+                Console.WriteLine("\t");
+                Console.WriteLine("Enter your height in metres > ");
+                Console.Write("Answer : ");
+                heightmStr = Console.ReadLine();
+                try
+                {
+                    heightm = Convert.ToDouble(heightmStr);
+                    isValid = true;
+
+                }
+                catch (Exception)
+                {
+                    isValid = false;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(" INVALID NUMBER!");
+                    Console.ForegroundColor = ConsoleColor.Green;
+
+                }
+                if  (heightm <= 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(" INVALID NUMBER!");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                }
+
+            } while (heightm <= 0);
+
+            // THIS SECTION WILL ASK WEIGHT IN KILOGRAMS
+            // IF INVALID INPUT IS ENTERED IT WILL SHOW ERROR
+
+            do
+            {
+                Console.WriteLine("\t");
+                Console.WriteLine("Enter your weight in kilograms > ");
+                Console.Write("Answer : ");
+                weightmStr = Console.ReadLine();
+                try
+                {
+                    weightm = Convert.ToDouble(weightmStr);
+                    isValid = true;
+
+                }
+                catch (Exception)
+                {
+                    isValid = false;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(" INVALID NUMBER!");
+                    Console.ForegroundColor = ConsoleColor.Green;
+
+                }
+                if (weightm <= 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(" INVALID NUMBER!");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                }
+
+            } while (weightm <= 0);
+
+            return 0;
+        }
+
+        // CALCULATION FOR METRIC
+        public void MetricCalculation()
+        {
+            Bmi = weightm / (heightm * heightm);
+        }
+
+        // OUTPUT FOR METRIC 
+        public void OutputMetric()
+        {
+
 
             if (Bmi < 18.50)
             {
@@ -121,34 +207,158 @@ namespace ConsoleAppProject.App02
 
         public void Imperial()
         {
-            Console.WriteLine("\t");
-            Console.WriteLine("Enter yout height in feet > ");
-            Console.Write("Answer : ");
-            string heightFeetStr = Console.ReadLine();
-            double heightFeet = Convert.ToDouble(heightFeetStr);
+            // DECLARING LOCAL VARIABLES
 
-            Console.WriteLine("Enter yout height in inches > ");
-            Console.Write("Answer : ");
-            string heightInchStr = Console.ReadLine();
-            double heightInch = Convert.ToDouble(heightInchStr);
+            string heightFeetStr;
+            string heightInchStr;
+            string weightStonesStr;
+            string weightPStr;
+            bool isValid;
 
-            Console.WriteLine("\t");
-            Console.WriteLine("Enter yout weight in stones > ");
-            Console.Write("Answer : ");
-            string weightStonesStr = Console.ReadLine();
-            double weightStones = Convert.ToDouble(weightStonesStr);
+            // THIS SECTION WILL ASK HEIGHT IN FEET
+            // IF INVALID INPUT IS ENTERED IT WILL SHOW ERROR
 
-            Console.WriteLine("Enter yout weight in pounds > ");
-            Console.Write("Answer : ");
-            string weightPStr = Console.ReadLine();
-            double weightP = Convert.ToDouble(weightPStr);
+            do
+            {
+                Console.WriteLine("\t");
+                Console.WriteLine("Enter your height in feet > ");
+                Console.Write("Answer : ");
+                heightFeetStr = Console.ReadLine();
+                try
+                {
+                    heightFeet = Convert.ToDouble(heightFeetStr);
+                    isValid = true;
 
+                }
+                catch (Exception)
+                {
+                    isValid = false;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(" INVALID NUMBER!");
+                    Console.ForegroundColor = ConsoleColor.Green;
+
+                }
+                if ( heightFeet <= 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(" INVALID NUMBER!");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                }
+
+            } while (heightFeet <= 0);
+
+            // THIS SECTION WILL ASK HEIGHT IN INCHES
+            // IF INVALID INPUT IS ENTERED IT WILL SHOW ERROR
+            
+            do
+            {
+                Console.WriteLine("\t");
+                Console.WriteLine("Enter your height in inches > ");
+                Console.Write("Answer : ");
+                heightInchStr = Console.ReadLine();
+                try
+                {
+                    heightInch = Convert.ToDouble(heightInchStr);
+                    isValid = true;
+
+                }
+                catch (Exception)
+                {
+                    isValid = false;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(" INVALID NUMBER!");
+                    Console.ForegroundColor = ConsoleColor.Green;
+
+                }
+                if (heightInch <= 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(" INVALID NUMBER!");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                }
+
+            } while (heightInch <= 0);
+
+            // THIS SECTION WILL ASK WEIGHT IN STONES
+            // IF INVALID INPUT IS ENTERED IT WILL SHOW ERROR
+
+            do
+            {
+                Console.WriteLine("\t");
+                Console.WriteLine("Enter your weight in stones > ");
+                Console.Write("Answer : ");
+                weightStonesStr = Console.ReadLine();
+                try
+                {
+                    weightStones = Convert.ToDouble(weightStonesStr);
+                    isValid = true;
+
+                }
+                catch (Exception)
+                {
+                    isValid = false;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(" INVALID NUMBER!");
+                    Console.ForegroundColor = ConsoleColor.Green;
+
+                }
+                if (weightStones <= 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(" INVALID NUMBER!");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                }
+
+            } while (weightStones <= 0);
+
+            // THIS SECTION WILL ASK WEIGHT IN POUNDS
+            // IF INVALID INPUT IS ENTERED IT WILL SHOW ERROR
+
+            do
+            {
+                Console.WriteLine("\t");
+                Console.WriteLine("Enter yout weight in pounds > ");
+                Console.Write("Answer : ");
+                weightPStr = Console.ReadLine();
+                try
+                {
+                    weightP = Convert.ToDouble(weightPStr);
+                    isValid = true;
+
+                }
+                catch (Exception)
+                {
+                    isValid = false;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(" INVALID NUMBER!");
+                    Console.ForegroundColor = ConsoleColor.Green;
+
+                }
+                if (weightP <= 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(" INVALID NUMBER!");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                }
+
+            } while (weightP <= 0);
+
+        }  
+        
+        // CALCULATION FOR IMPERIAL
+
+        public void ImperialCalculation()
+        {
             double height = heightFeet * 12 + heightInch;
             double weight = weightStones * 14 + weightP;
 
             double Bmi = weight / (height * height) * 703;
-        
-         
+        }
+
+        // IMPERIAL OUTPUT
+
+        public void OutputImperial()
+        {
             if (Bmi < 18.50)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
@@ -187,7 +397,9 @@ namespace ConsoleAppProject.App02
             Console.WriteLine("Adults 27.5 or more are at high risk");
             Console.ForegroundColor = ConsoleColor.Green;
         }
-        }  
-    }
+
+
+    }  
+}
 		
 	

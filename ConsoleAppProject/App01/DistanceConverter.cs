@@ -1,4 +1,5 @@
 ﻿using ConsoleAppProject.App01;
+using ConsoleAppProject.Helpers;
 using System;
 using System.Security.Cryptography.X509Certificates;
 
@@ -117,7 +118,11 @@ namespace ConsoleAppProject.App01
                 if (unit != "1" || unit != "2" || unit != "3" || unit != "4" || unit != "5" || unit != "6" || unit != "7" ||
               unit != "miles" || unit != "meters" || unit != "feet")
                 {
+                    // ERROR MESSAGE IF INVALID UNIT IS ENTERED
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Invalid unit, try again!");
+                    Console.ForegroundColor = ConsoleColor.Green;
+
                 }
             }
              // CHECKING POSSIBLE ANSWERS
@@ -181,7 +186,10 @@ namespace ConsoleAppProject.App01
                 if ((convert != "1" || convert != "2" || convert != "3" || convert != "4" || convert != "5" || convert != "6" || convert != "7" ||
                convert != "miles" || convert != "meters" || convert != "feet"))
                 {
+                    // ERROR MESSAGE IF INVALID UNIT IS ENTERED
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Invalid unit, try again!");
+                    Console.ForegroundColor = ConsoleColor.Green;
                 }
             }
              // CHECKING POSSIBLE ANSWERS
@@ -194,11 +202,35 @@ namespace ConsoleAppProject.App01
             return null;
         }
          // ASKING USER FOR INPUT
-        public int InputDistance(string prompt)
+        public double InputDistance(string prompt)
         {
-            Console.WriteLine("\t");
-            Console.WriteLine("Please enter the number of  " + prompt);
-            return Convert.ToInt32(Console.ReadLine());
+
+
+            //CHECKING IF INVALID INPUT IS ENTERED (NEGATIVE NUMBERS/ SYMBOLS) WITH THE HELP OF HELPERS
+            bool isValid;
+            double input =0;
+
+            do
+            {
+                Console.WriteLine("\t");
+                Console.WriteLine("Please enter the number of  " + prompt);
+                try
+                {
+                    Console.Write("Answer : ");
+                    input = Convert.ToDouble(Console.ReadLine());
+                    isValid = true;
+                }
+                catch (Exception)
+                {
+                    isValid = false;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(" INVALID NUMBER!");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                }
+
+            } while (input <= 0);
+
+            return input;
         }
 
          // CONVERTING PROCESS

@@ -29,11 +29,13 @@ namespace ConsoleAppProject
 
             DistanceConverter converter = new DistanceConverter();
             BMI bmiCalc = new BMI();
+            StudentGrades studGrade = new StudentGrades();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\t");
             Console.WriteLine("  Choose the application by entering the number ");
             Console.WriteLine(" 1. Distance Converter ");
             Console.WriteLine(" 2. BMI Calculator ");
+            Console.WriteLine(" 3. Student Grades ");
             Console.WriteLine("\t");
             Console.Write("Answer : ");
             string choiceStr = Console.ReadLine();
@@ -66,8 +68,19 @@ namespace ConsoleAppProject
                 Console.ForegroundColor = ConsoleColor.Green;
                 bmiCalc.Run();
             }
-            
-            
+            else if (choice == 3)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine();
+                Console.WriteLine(" =================================================");
+                Console.WriteLine("          Welcome to Students Grades App! ");
+                Console.WriteLine(" =================================================");
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Green;
+                studGrade.Run();
+            }
+
+
         }
     }
 }

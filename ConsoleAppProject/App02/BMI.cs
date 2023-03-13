@@ -371,6 +371,7 @@ namespace ConsoleAppProject.App02
                 Console.WriteLine("Your BMI is " + Bmi2 + ", You are in normal range ! ");
             }
             else if (Bmi2 < 29.9)
+
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Your BMI is " + Bmi2 + ", You are bit overweight ! ");

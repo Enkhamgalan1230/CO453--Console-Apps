@@ -25,6 +25,17 @@ namespace ConsoleAppProject.App03
         B,
         [Display(Name = "1st")]
         [Description("BSc(Hons) First Class")]
-        A
+        A,
+        [Display(Name = "Error")]
+        [Description("You have entered an invalid value.")]
+        X,
     }
+    
+
+
+
+
+
+
+
 }

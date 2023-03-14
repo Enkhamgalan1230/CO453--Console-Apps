@@ -10,12 +10,15 @@ using ConsoleAppProject.Helpers;
 namespace ConsoleAppProject.App03
 {
     /// <summary>
-    /// At the moment this class just tests the
-    /// Grades enumeration names and descriptions
+    /// This class will allow user to mark students grade and see the results in table and see statistics.
     /// </summary>
+    /// <author>
+    /// Enkh-Amgalan Enkhbayar
+    /// </author>
     public class StudentGrades
     {
-        // Const
+        // CONSTANTS
+        // DECLARED VARIABLES AND ARRAYS
 
         public const int FIRSTCLASS = 70;
         public const int UPPERSECONDCLASS = 60;
@@ -27,27 +30,34 @@ namespace ConsoleAppProject.App03
         public const int MAX_MARK = 100;
         public const int MIN_MARK = 0;
 
+       
         public string[] Students { get; set; }
 
         public int[] Marks { get; set; }
 
         public int[] GradeProfile { get; set; }
+        public int Total { get; set; }
         public Grades[] Grades { get; set; }
 
         private readonly string[] Classification = new string[] {"First Class", "Upper Second Class",
         "Lower Second Class", "Third Class", "Fail",};
 
-        public double Mean { get; set; }   
+        public double Mean { get; set; }
 
-        public int Minimum { get; set; }    
+        public int Minimum { get; set; }
 
         public int Maximum { get; set; }
+        
 
+        // RUNNING THE METHOD THAT I CREATED
         public void Run()
         {
             Menu();
         }
 
+        // USER MENU 
+        // TEXT AND INT NUMBERS CAN BE AN INPUT 
+        // IF THE INPUT IS MORE THAN A NUMBER '5', ERROR WILL BE DISPLAYED
         private void Menu()
         {
             Console.WriteLine("1. Input Marks");
@@ -96,9 +106,12 @@ namespace ConsoleAppProject.App03
             }
             while
            (
-             choice != "1" && choice != "2" && choice != "3" && choice != "4" && choice != "5" 
+             choice != "1" && choice != "2" && choice != "3" && choice != "4" && choice != "5"
            );
         }
+
+        // ADDING STRING NAMES TO MY STUDENTS ARRAY LIST
+        //
         public StudentGrades()
         {
             Students = new string[]
@@ -110,9 +123,12 @@ namespace ConsoleAppProject.App03
             Marks = new int[Students.Length];
 
         }
+        //
+        // TAKING INT NUMBERS AS A MARKS AND STORING IT IN ARRAY LIST
+        //
         public void InputMarks()
         {
-            for (int i = 0; i < Students.Length; i++  )
+            for (int i = 0; i < Students.Length; i++)
             {
                 bool validInput = false;
                 int mark = 0;
@@ -127,7 +143,7 @@ namespace ConsoleAppProject.App03
                         Console.WriteLine("Error! Enter valid number ");
                         Console.ForegroundColor = ConsoleColor.Green;
                     }
-                    else if (mark> 100)
+                    else if (mark > 100)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Error! Enter number between 0 and 100.");
@@ -141,12 +157,13 @@ namespace ConsoleAppProject.App03
                     }
                     else
                     {
-                        validInput= true;
+                        validInput = true;
                     }
 
                 }
+                // THIS IS WHERE IT IS HELD
                 Marks[i] = mark;
-              
+
             }
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -154,21 +171,27 @@ namespace ConsoleAppProject.App03
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Press any key to continue");
             Console.ForegroundColor = ConsoleColor.Green;
+            // SHOWING THE MENU ONCE AGAIN AFTER THE KEYBOARD INPUT
             Console.ReadKey();
             Menu();
 
 
         }
+
+        // OUTPUTING THE STORED ARRAYS
+        // AT THE SAME TIME CHECKING THE MARKS AND CONVERTING IT TO GRADES
+        // ADDITIONALLY ADDED SOME BARS SO IT LOOKS LIKE A TABLE
+        // CREDIT TO : SIHAN (NEW LECTURER).
         public void OutputMarks()
         {
             Console.WriteLine("N0.".PadRight(5) + "Names".PadRight(13) + "Marks".PadRight(9) + "Grade");
             Console.WriteLine("===".PadRight(5) + "======".PadRight(13) + "====".PadRight(9) + "====");
             int students = 0;
-            for (int i = 0; i< Students.Length; i++)
+            for (int i = 0; i < Students.Length; i++)
             {
                 int mark = Marks[i];
                 Grades grade = ConvertMarktoGrade(mark);
-                string studentNumber= (i+1).ToString();
+                string studentNumber = (i + 1).ToString();
                 Console.Write($"{studentNumber}".PadRight(5));
                 Console.Write($"{Students[i]}".PadRight(14));
                 Console.Write($"{mark}".PadRight(8));
@@ -190,6 +213,8 @@ namespace ConsoleAppProject.App03
 
         }
 
+        // OUTPUT OF STATISTICS
+        //
         public void OutputStatistics()
         {
             CalculateMean();
@@ -203,14 +228,16 @@ namespace ConsoleAppProject.App03
             Menu();
         }
 
+        // 
         public void OutputGradeProfile()
         {
-            CalculateGradeProfile();
-            for (int i = 0; i < GradeProfile.Length; i++)
-            {
-                Console.WriteLine();
-                Console.WriteLine($"{GradeProfile[i]}% - {Classification[i]}");
-            }
+            int[] GradeCounts = new int[5];
+
+            Console.WriteLine($" A (First Class) > {GradeCounts[0] / Marks.Length * 100}%");
+            Console.WriteLine($" B (Upper Second Class) > {GradeCounts[1] / Marks.Length * 100}%");
+            Console.WriteLine($" C (Lower Second Class) > {GradeCounts[2] / Marks.Length * 100}%");
+            Console.WriteLine($" D (Third Class) > {GradeCounts[3] / Marks.Length * 100}%");
+            Console.WriteLine($" F (Fail) > {GradeCounts[4] / Marks.Length * 100}%");
 
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.White;
@@ -220,6 +247,9 @@ namespace ConsoleAppProject.App03
             Menu();
         }
 
+        // IN THIS METHOD IT WILL RETURN GRADES WHEN NUMBERS ARE ENTERED
+        // I DON'T KNOW HOW TO EXPLAIN IT PROPERLY BUT 
+        // IT IS CALLING AND TAKING INFO FROM GRADES.CS
         public Grades ConvertMarktoGrade(int mark)
         {
             if (mark < 40)
@@ -246,106 +276,92 @@ namespace ConsoleAppProject.App03
                 return App03.Grades.A;
             }
         }
+        // MEANS IS CALCULATED HERE
+        // ALL THE MARKS WILL BE ADDED AND DIVIDED BY TOTAL STUDENTS
         public void CalculateMean()
         {
-            int total = 0;
-
-            Maximum = Marks[0];
-            Minimum = Marks[0];
 
             foreach (int mark in Marks)
             {
-                if (mark > MAX_MARK)
+                Total += mark;
+            }
+
+            Mean = Total / Students.Length;
+        }
+        // 
+        public void CalculateMinMax()
+        {
+            Minimum = Marks[0];
+            Maximum = Marks[0];
+
+            foreach (int mark in Marks)
+            {
+
+                if (mark > Maximum)
                 {
                     Maximum = mark;
                 }
-                else if (mark < MIN_MARK)
+                else if (mark < Minimum)
                 {
                     Minimum = mark;
                 }
 
-                total += mark;
-                Mean = total / Students.Length;
-
             }
-        }
-        public void CalculateMinMax()
-        {
-               Minimum = Marks[0];
-               Maximum = Marks[0];
 
-               int total = 0;
-
-               foreach (int mark in Marks)
-               {
-                   total += mark;
-
-                   if (mark > Maximum)
-                   {
-                       Maximum = mark;
-                   }
-                   else if (mark < Minimum)
-                   {
-                       Minimum = mark;
-                   }
-
-               }
-
-                Mean = total / Marks.Length;
         }
         public void CalculateGradeProfile()
         {
-            GradeProfile = new int[5];
+            int[] GradeCounts = new int[5];
 
-            foreach (var grade in Grades)
+            foreach (int mark in Marks)
             {
-                if (grade == App03.Grades.F)
-                    GradeProfile[0]++;
-
-                else if (grade == App03.Grades.D)
-                    GradeProfile[1]++;
-
-                else if (grade == App03.Grades.C)
-                    GradeProfile[2]++;
-
-                else if (grade == App03.Grades.B)
-                    GradeProfile[3]++;
-
-                else if (grade == App03.Grades.A)
-                    GradeProfile[4]++;
-
+                if (mark >= 70)
+                {
+                    GradeCounts[0]++;
+                }
+                else if (mark >= 60)
+                {
+                    GradeCounts[1]++;
+                }
+                else if (mark >= 50)
+                {
+                    GradeCounts[2]++;
+                }
+                else if (mark >= 40)
+                {
+                    GradeCounts[3]++;
+                }
+                else
+                {
+                    GradeCounts[4]++;
+                }
             }
-
-            for (int i = 0; i < GradeProfile.Length; i++)
-            {
-                GradeProfile[i] = GradeProfile[i] * (100 / Students.Length);
-            }
+            
         }
-        public void CalculateGrades()
+        public string CalculateGrades(int mark)
         {
-            Grades = new Grades[Students.Length];
-
-            for (int i = 0; i < Marks.Length; i++)
+            if (mark >= 70)
             {
-                if (Marks[i] is >= 0 and < 40)
-                    Grades[i] = App03.Grades.F;
-
-                else if (Marks[i] is >= 40 and < 50)
-                    Grades[i] = App03.Grades.D;
-
-                else if (Marks[i] is >= 50 and < 60)
-                    Grades[i] = App03.Grades.C;
-
-                else if (Marks[i] is >= 60 and < 70)
-                    Grades[i] = App03.Grades.B;
-
-                else if (Marks[i] is >= 70 and < 100)
-                    Grades[i] = App03.Grades.A;
-
+                return " A (First Class)";
             }
+            else if (mark >= 60)
+            {
+                return " B (Upper Second Class)";
+            }
+            else if (mark >= 50)
+            {
+                return " C (Lower Second Class)";
+            }
+            else if (mark >= 40)
+            {
+                return " D (Third Class)";
+            }
+            else
+            {
+                return " F (Fail)";
+            }
+
         }
-
-
     }
 }
 

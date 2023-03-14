@@ -5,7 +5,12 @@ namespace TestProject3
     [TestClass]
     public class UnitTest1
     {
-         [TestMethod]
+        
+        int expectedOutput;
+
+        public int[] Marks { get; private set; }
+
+        [TestMethod]
             public void TestZerotoGrade()
             {
                 StudentGrades grades = new();
@@ -104,7 +109,48 @@ namespace TestProject3
 
                 Assert.AreEqual(Grades.A, grade);
             }
+            [TestMethod]
+            public void TestMean()
+            {
+                int[] statsMarks = new int[]
+                {
+                   10,20,30,40,50,60,70,80,90,100
+                };
+               
+                StudentGrades grades = new();
 
-        }
+                grades.CalculateMean();
+
+                expectedOutput = 55;
+
+                Assert.AreEqual(expectedOutput, grades.Mean);
+            }
+
+           [TestMethod]
+            public void TestMin()
+            {
+                StudentGrades grades = new();
+
+                grades.CalculateMinMax();
+                expectedOutput = 10;
+
+            Assert.AreEqual(expectedOutput, grades.Minimum);
+            }
+
+            [TestMethod]
+            public void TestMax()
+            {
+               StudentGrades grades = new();
+
+               grades.CalculateMinMax();
+               expectedOutput = 100;
+ 
+               Assert.AreEqual(expectedOutput, grades.Maximum);
+            }
+
+
+
+
     }
+}
  

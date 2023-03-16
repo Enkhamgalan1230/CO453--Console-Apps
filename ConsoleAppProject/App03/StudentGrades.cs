@@ -6,6 +6,8 @@ using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Security.Cryptography;
 using ConsoleAppProject.Helpers;
+using System.Drawing;
+using System.Web.Helpers;
 
 namespace ConsoleAppProject.App03
 {
@@ -39,9 +41,7 @@ namespace ConsoleAppProject.App03
         public int Total { get; set; }
         public Grades[] Grades { get; set; }
 
-        private readonly string[] Classification = new string[] {"First Class", "Upper Second Class",
-        "Lower Second Class", "Third Class", "Fail",};
-
+        
         public double Mean { get; set; }
 
         public int Minimum { get; set; }
@@ -288,7 +288,8 @@ namespace ConsoleAppProject.App03
 
             Mean = Total / Students.Length;
         }
-        // 
+        // MINIMUM AND MAXIMUM CALCULATION HERE
+        //
         public void CalculateMinMax()
         {
             Minimum = Marks[0];
@@ -309,6 +310,8 @@ namespace ConsoleAppProject.App03
             }
 
         }
+        // CHECKING ALL THE MARKS AND IF IT IS BETWEEN IN THESE RANGES
+        // THE COUNTER/LIST GOES UP
         public void CalculateGradeProfile()
         {
             int[] GradeCounts = new int[5];
@@ -337,30 +340,6 @@ namespace ConsoleAppProject.App03
                 }
             }
             
-        }
-        public string CalculateGrades(int mark)
-        {
-            if (mark >= 70)
-            {
-                return " A (First Class)";
-            }
-            else if (mark >= 60)
-            {
-                return " B (Upper Second Class)";
-            }
-            else if (mark >= 50)
-            {
-                return " C (Lower Second Class)";
-            }
-            else if (mark >= 40)
-            {
-                return " D (Third Class)";
-            }
-            else
-            {
-                return " F (Fail)";
-            }
-
         }
     }
 }

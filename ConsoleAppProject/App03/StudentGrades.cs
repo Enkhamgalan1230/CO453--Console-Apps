@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using ConsoleAppProject.Helpers;
 using System.Drawing;
 using System.Web.Helpers;
+using System.Linq;
 
 namespace ConsoleAppProject.App03
 {
@@ -28,9 +29,9 @@ namespace ConsoleAppProject.App03
         public const int THIRDCLASS = 40;
         public const int FAIL = 0;
 
-        public const int MAXSTUDENTS = 10;
+        /*public const int MAXSTUDENTS = 10;
         public const int MAX_MARK = 100;
-        public const int MIN_MARK = 0;
+        public const int MIN_MARK = 0;*/
 
        
         public string[] Students { get; set; }
@@ -228,16 +229,45 @@ namespace ConsoleAppProject.App03
             Menu();
         }
 
-        // 
+        // IN THIS METHOD I TRIED TO CREATE SEPERATE CALCULATION AND OUTPUT METHODS
+        // BUT I COULDN'T CONNECT THEM TOGETHER SO I MERGED THEM TOGETHER
+        //
         public void OutputGradeProfile()
         {
             int[] GradeCounts = new int[5];
-
-            Console.WriteLine($" A (First Class) > {GradeCounts[0] / Marks.Length * 100}%");
-            Console.WriteLine($" B (Upper Second Class) > {GradeCounts[1] / Marks.Length * 100}%");
-            Console.WriteLine($" C (Lower Second Class) > {GradeCounts[2] / Marks.Length * 100}%");
-            Console.WriteLine($" D (Third Class) > {GradeCounts[3] / Marks.Length * 100}%");
-            Console.WriteLine($" F (Fail) > {GradeCounts[4] / Marks.Length * 100}%");
+            // CHECKING THE INPUT STRAIGHT AWAY AND CLASSIFYING IT
+            // IF THE MARK GOES TO ONE RANGE, THE COUNTER/ARRAY GOES UP BY ONE
+             foreach (int mark in Marks)
+             {
+                 if (mark >= FIRSTCLASS)
+                 {
+                     GradeCounts[0]++;
+                 }
+                 else if (mark >= UPPERSECONDCLASS)
+                 {
+                     GradeCounts[1]++;
+                 }
+                 else if (mark >= LOWERSECONDCLASS)
+                 {
+                     GradeCounts[2]++;
+                 }
+                 else if (mark >= THIRDCLASS)
+                 {
+                     GradeCounts[3]++;
+                 }
+                 else
+                 {
+                     GradeCounts[4]++;
+                 }
+             }
+             // ADDING UP ALL THE GRADE COUNTS SO I CAN USE IT AS A TOTAL STUDENTS
+            int total = GradeCounts.Sum();
+            // PRINTING ON THE SCREEN 
+            Console.WriteLine($" A (First Class) > There are {GradeCounts[0]} students in this range, which is {(double)GradeCounts[0] / total:P}");
+            Console.WriteLine($" B (Upper Second Class) > {GradeCounts[1]} students in this range, which is {(double)GradeCounts[1] / total:P}");
+            Console.WriteLine($" C (Lower Second Class) > {GradeCounts[2]} students in this range, which is  {(double)GradeCounts[1] / total:P}");
+            Console.WriteLine($" D (Third Class) > {GradeCounts[3]} students in this range, which is  {(double)GradeCounts[3] / total:P}");
+            Console.WriteLine($" F (Fail) > {GradeCounts[4]} students in this range, which is  {(double)GradeCounts[4] / total:P}");
 
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.White;
@@ -310,37 +340,8 @@ namespace ConsoleAppProject.App03
             }
 
         }
-        // CHECKING ALL THE MARKS AND IF IT IS BETWEEN IN THESE RANGES
-        // THE COUNTER/LIST GOES UP
-        public void CalculateGradeProfile()
-        {
-            int[] GradeCounts = new int[5];
-
-            foreach (int mark in Marks)
-            {
-                if (mark >= 70)
-                {
-                    GradeCounts[0]++;
-                }
-                else if (mark >= 60)
-                {
-                    GradeCounts[1]++;
-                }
-                else if (mark >= 50)
-                {
-                    GradeCounts[2]++;
-                }
-                else if (mark >= 40)
-                {
-                    GradeCounts[3]++;
-                }
-                else
-                {
-                    GradeCounts[4]++;
-                }
-            }
-            
-        }
+        
+        
     }
 }
 

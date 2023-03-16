@@ -1,4 +1,5 @@
 using ConsoleAppProject.App03;
+using System;
 
 namespace TestProject3
 {
@@ -8,7 +9,7 @@ namespace TestProject3
         
         int expectedOutput;
 
-        public int[] Marks { get; private set; }
+       
 
         [TestMethod]
             public void TestZerotoGrade()
@@ -112,13 +113,13 @@ namespace TestProject3
             [TestMethod]
             public void TestMean()
             {
-                int[] statsMarks = new int[]
+
+                StudentGrades grades = new();
+                grades.Marks = new int[]
                 {
                    10,20,30,40,50,60,70,80,90,100
                 };
-               
-                StudentGrades grades = new();
-
+             
                 grades.CalculateMean();
 
                 expectedOutput = 55;
@@ -129,27 +130,32 @@ namespace TestProject3
            [TestMethod]
             public void TestMin()
             {
-                StudentGrades grades = new();
-
-                grades.CalculateMinMax();
-                expectedOutput = 10;
-
-            Assert.AreEqual(expectedOutput, grades.Minimum);
+                 StudentGrades grades = new();
+                 grades.Marks = new int[]
+                 {
+                    10,20,30,40,50,60,70,80,90,100
+                 };
+                 grades.CalculateMinMax();
+                 expectedOutput = 10;
+    
+                 Assert.AreEqual(expectedOutput, grades.Minimum);
             }
 
             [TestMethod]
             public void TestMax()
             {
-               StudentGrades grades = new();
+                StudentGrades grades = new();
+                grades.Marks = new int[]
+                {
+                   10,20,30,40,50,60,70,80,90,100
+                };
 
-               grades.CalculateMinMax();
-               expectedOutput = 100;
+                grades.CalculateMinMax();
+                expectedOutput = 100;
  
-               Assert.AreEqual(expectedOutput, grades.Maximum);
+                Assert.AreEqual(expectedOutput, grades.Maximum);
             }
-
-
-
+        
 
     }
 }

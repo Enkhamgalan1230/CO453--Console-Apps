@@ -42,7 +42,9 @@ namespace ConsoleAppProject.App03
         public int Total { get; set; }
         public Grades[] Grades { get; set; }
 
-        
+        public int[] GradeCounts = new int[5];
+
+
         public double Mean { get; set; }
 
         public int Minimum { get; set; }
@@ -120,7 +122,7 @@ namespace ConsoleAppProject.App03
                 "Entwan","Derik","Sihan","Nick","Cimo",
                 "Rayan","Rafid","Ravoline","John","Henrey"
             };
-            GradeProfile = new int[] { (int)App03.Grades.A + 1 };
+            GradeProfile = new int[] { 0,0,0,0,0,0 };
             Marks = new int[Students.Length];
 
         }
@@ -234,32 +236,7 @@ namespace ConsoleAppProject.App03
         //
         public void OutputGradeProfile()
         {
-            int[] GradeCounts = new int[5];
-            // CHECKING THE INPUT STRAIGHT AWAY AND CLASSIFYING IT
-            // IF THE MARK GOES TO ONE RANGE, THE COUNTER/ARRAY GOES UP BY ONE
-             foreach (int mark in Marks)
-             {
-                 if (mark >= FIRSTCLASS)
-                 {
-                     GradeCounts[0]++;
-                 }
-                 else if (mark >= UPPERSECONDCLASS)
-                 {
-                     GradeCounts[1]++;
-                 }
-                 else if (mark >= LOWERSECONDCLASS)
-                 {
-                     GradeCounts[2]++;
-                 }
-                 else if (mark >= THIRDCLASS)
-                 {
-                     GradeCounts[3]++;
-                 }
-                 else
-                 {
-                     GradeCounts[4]++;
-                 }
-             }
+            CalculateGradeProfile();
              // ADDING UP ALL THE GRADE COUNTS SO I CAN USE IT AS A TOTAL STUDENTS
             int total = GradeCounts.Sum();
             // PRINTING ON THE SCREEN 
@@ -340,7 +317,50 @@ namespace ConsoleAppProject.App03
             }
 
         }
-        
+        public void CalculateGradeProfile()
+        {
+            // CHECKING THE INPUT STRAIGHT AWAY AND CLASSIFYING IT
+            // IF THE MARK GOES TO ONE RANGE, THE COUNTER/ARRAY GOES UP BY ONE
+            foreach (int mark in Marks)
+            {
+                if (mark >= FIRSTCLASS)
+                {
+                    GradeCounts[0]++;
+                }
+                else if (mark >= UPPERSECONDCLASS)
+                {
+                    GradeCounts[1]++;
+                }
+                else if (mark >= LOWERSECONDCLASS)
+                {
+                    GradeCounts[2]++;
+                }
+                else if (mark >= THIRDCLASS)
+                {
+                    GradeCounts[3]++;
+                }
+                else
+                {
+                    GradeCounts[4]++;
+                }
+            }
+        }
+        // I USED THIS METHOD ONLY FOR UNIT TESTING
+        // BECAUSE MINE WASNT WORKING 
+        public void CalculateGradeProfileUnitTest()
+        {
+            for(int i = 0; i < GradeCounts.Length; i++)
+            {
+                GradeCounts[i] = 0;
+            }
+            foreach(int mark in Marks)
+            {
+                Grades grade = ConvertMarktoGrade(mark);
+                GradeProfile[(int)grade]++;
+            }
+        }
+
+        // THANKS :)
         
     }
 }

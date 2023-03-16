@@ -8,8 +8,13 @@ namespace TestProject3
     {
         
         int expectedOutput;
-
-       
+        
+        private readonly StudentGrades
+            grades = new StudentGrades();
+        private readonly int[] Stats = new int[]
+        {
+            10,20,30,40,50,60,70,80,90,100
+        };
 
         [TestMethod]
             public void TestZerotoGrade()
@@ -114,27 +119,20 @@ namespace TestProject3
             public void TestMean()
             {
 
-                StudentGrades grades = new();
-                grades.Marks = new int[]
-                {
-                   10,20,30,40,50,60,70,80,90,100
-                };
-             
-                grades.CalculateMean();
+                 StudentGrades grades = new();
+                 grades.Marks = Stats;
+                 grades.CalculateMean();
 
-                expectedOutput = 55;
+                 expectedOutput = 55;
 
-                Assert.AreEqual(expectedOutput, grades.Mean);
+                 Assert.AreEqual(expectedOutput, grades.Mean);
             }
 
            [TestMethod]
             public void TestMin()
             {
                  StudentGrades grades = new();
-                 grades.Marks = new int[]
-                 {
-                    10,20,30,40,50,60,70,80,90,100
-                 };
+                 grades.Marks = Stats; 
                  grades.CalculateMinMax();
                  expectedOutput = 10;
     
@@ -145,17 +143,33 @@ namespace TestProject3
             public void TestMax()
             {
                 StudentGrades grades = new();
-                grades.Marks = new int[]
-                {
-                   10,20,30,40,50,60,70,80,90,100
-                };
+                grades.Marks = Stats;
 
-                grades.CalculateMinMax();
+            grades.CalculateMinMax();
                 expectedOutput = 100;
  
                 Assert.AreEqual(expectedOutput, grades.Maximum);
             }
-        
+            
+            [TestMethod]
+
+            public void TestGradeProfile()
+            {
+                grades.Marks = Stats;
+                bool expectedProfile = false;
+
+                grades.CalculateGradeProfileUnitTest();
+
+                 expectedProfile = ((grades.GradeProfile[0] == 3) &&
+                                   (grades.GradeProfile[1] == 1) &&
+                                   (grades.GradeProfile[2] == 1) &&
+                                   (grades.GradeProfile[3] == 1) &&
+                                   (grades.GradeProfile[4] == 4));
+
+               Assert.IsTrue(expectedProfile);
+            }
+
+
 
     }
 }

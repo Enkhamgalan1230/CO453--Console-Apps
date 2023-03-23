@@ -8,6 +8,10 @@ namespace ConsoleAppProject.App04
 {
      public class Post
      {
+        public DateTime Timestamp { get; }
 
-     }
+        public String Username { get; set; }
+
+
+    }
 }

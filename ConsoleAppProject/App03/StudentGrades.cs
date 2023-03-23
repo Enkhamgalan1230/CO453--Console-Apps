@@ -122,7 +122,7 @@ namespace ConsoleAppProject.App03
                 "Entwan","Derik","Sihan","Nick","Cimo",
                 "Rayan","Rafid","Ravoline","John","Henrey"
             };
-            GradeProfile = new int[] { 0,0,0,0,0,0 };
+            GradeProfile = new int[] {0,0,0,0,0 };
             Marks = new int[Students.Length];
 
         }

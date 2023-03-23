@@ -30,12 +30,14 @@ namespace ConsoleAppProject
             DistanceConverter converter = new DistanceConverter();
             BMI bmiCalc = new BMI();
             StudentGrades studGrade = new StudentGrades();
+
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\t");
             Console.WriteLine("  Choose the application by entering the number ");
             Console.WriteLine(" 1. Distance Converter ");
             Console.WriteLine(" 2. BMI Calculator ");
             Console.WriteLine(" 3. Student Grades ");
+            Console.WriteLine(" 4. Social Network ");
             Console.WriteLine("\t");
             Console.Write("Answer : ");
             string choiceStr = Console.ReadLine();
@@ -78,6 +80,17 @@ namespace ConsoleAppProject
                 Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.Green;
                 studGrade.Run();
+            }
+            else if (choice == 4)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine();
+                Console.WriteLine(" =================================================");
+                Console.WriteLine("          Welcome to APP04, Social Network! ");
+                Console.WriteLine(" =================================================");
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Green;
+                //studGrade.Run();
             }
 
 

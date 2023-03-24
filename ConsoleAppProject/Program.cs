@@ -1,6 +1,7 @@
 ﻿using ConsoleAppProject.App01;
 using ConsoleAppProject.App02;
 using ConsoleAppProject.App03;
+using ConsoleAppProject.App04;
 using ConsoleAppProject.Helpers;
 using System;
 using System.Xml.Serialization;
@@ -30,7 +31,7 @@ namespace ConsoleAppProject
             DistanceConverter converter = new DistanceConverter();
             BMI bmiCalc = new BMI();
             StudentGrades studGrade = new StudentGrades();
-
+            NetworkApp app04 = new NetworkApp();    
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\t");
             Console.WriteLine("  Choose the application by entering the number ");
@@ -90,7 +91,7 @@ namespace ConsoleAppProject
                 Console.WriteLine(" =================================================");
                 Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.Green;
-                //studGrade.Run();
+                app04.Run();
             }
 
 

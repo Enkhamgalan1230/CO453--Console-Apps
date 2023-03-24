@@ -26,33 +26,28 @@ namespace ConsoleAppProject.App04
         public List<int> Likes;
 
         public string Author;
-        public bool ExitLoop { get; set; }
+        public bool StopLoop { get; set; }
 
         public bool NoPosts = false;
 
-        public int VisiblePost { get; set; }
+        public int AvailablePosts { get; set; }
 
-        public int VisiblePostIndex { get; set; }
+        public int AvailablePostsIndex { get; set; }
 
         public List<Post> Posts { get; set; }
         public string Search { get; set; }  
 
-        private readonly List<Post> posts;
+        public const string Stringempty = "";
 
         ///<summary>
         /// Construct an empty news feed.
         ///</summary>
         public NewsFeed()
         {
-            posts = new List<Post>();
+            Posts = new List<Post>();
 
             Likes = new List<int>();
 
-            MessagePost post = new MessagePost( "entwan", "Hi! This is pinned post.");
-            AddMessagePost(post);
-
-            PhotoPost photoPost = new PhotoPost("Entwan", "homies.jpg", "Me homies today");
-            AddPhotoPost(photoPost);
         
         }
 
@@ -63,7 +58,7 @@ namespace ConsoleAppProject.App04
         ///</summary>
         public void AddMessagePost(MessagePost message)
         {
-            posts.Add(message);
+            Posts.Add(message);
         }
 
         ///<summary>
@@ -73,7 +68,7 @@ namespace ConsoleAppProject.App04
         ///</summary>
         public void AddPhotoPost(PhotoPost photo)
         {
-            posts.Add(photo);
+            Posts.Add(photo);
         }
 
         ///<summary>
@@ -84,7 +79,7 @@ namespace ConsoleAppProject.App04
         {
             if (Posts.Count == 0)
             {
-                Console.WriteLine("  -- No posts to display --  "); 
+                Console.WriteLine("  No posts to display   "); 
 
                 Console.Clear();
             }
@@ -99,20 +94,20 @@ namespace ConsoleAppProject.App04
         {
             if (Posts.Count == 0)
             {
-                VisiblePostIndex = 0;
+                AvailablePostsIndex = 0;
             }
 
             else
             {
-                for (VisiblePostIndex = 0; VisiblePostIndex <= Posts.Count; VisiblePostIndex++)
+                for (AvailablePostsIndex = 0; AvailablePostsIndex <= Posts.Count; AvailablePostsIndex++)
                 {
-                    ExitLoop = false;
+                    StopLoop = false;
 
                     //Console.Clear();
 
                     RepeatFinalPost();
 
-                    if (VisiblePost < Posts.Count - 1)
+                    if (AvailablePosts < Posts.Count - 1)
                     {
                         ShowPost();
                     }
@@ -135,23 +130,23 @@ namespace ConsoleAppProject.App04
                     switch (choice)
                     {
                         case 1:
-                            LikePost(Posts[VisiblePostIndex]);
+                            LikePost(Posts[AvailablePostsIndex]);
 
-                            VisiblePostIndex--;
+                            AvailablePostsIndex--;
 
                             break;
 
                         case 2:
-                            UnlikePost(Posts[VisiblePostIndex]);
+                            UnlikePost(Posts[AvailablePostsIndex]);
 
-                            VisiblePostIndex--;
+                            AvailablePostsIndex--;
 
                             break;
 
                         case 3:
                             RemovePost();
 
-                            VisiblePostIndex--;
+                            AvailablePostsIndex--;
 
                             break;
 
@@ -161,9 +156,9 @@ namespace ConsoleAppProject.App04
                             break;
 
                         case 5:
-                            AddComment(Posts[VisiblePostIndex]);
+                            AddComment(Posts[AvailablePostsIndex]);
 
-                            VisiblePostIndex--;
+                            AvailablePostsIndex--;
 
                             break;
 
@@ -175,7 +170,7 @@ namespace ConsoleAppProject.App04
                         case 7:
                             Console.Clear();
 
-                            ExitLoop = true;
+                            StopLoop = true;
 
                             break;
 
@@ -183,11 +178,11 @@ namespace ConsoleAppProject.App04
                             break;
                     }
 
-                    if (ExitLoop && NoPosts)
+                    if (StopLoop && NoPosts)
                     {
-                        VisiblePost = 0;
+                        AvailablePosts = 0;
 
-                        Console.WriteLine("\n    -- All posts removed --\n");
+                        Console.WriteLine(" ===== All posts removed =====\n");
 
                         Console.WriteLine();
 
@@ -197,9 +192,9 @@ namespace ConsoleAppProject.App04
                     else
 
                     {
-                        if (ExitLoop)
+                        if (StopLoop)
                         {
-                            VisiblePost = 0;
+                            AvailablePosts = 0;
 
                             Console.WriteLine();
 
@@ -212,43 +207,42 @@ namespace ConsoleAppProject.App04
 
         private void ShowPost()
         {
-            Console.WriteLine($"\n    -- Showing {VisiblePost + 1}/" +
-                $"{Posts.Count} posts --");
+            Console.WriteLine($"\n    -- Showing {AvailablePosts + 1}/" +  $"{Posts.Count} posts --");
 
-            Posts[VisiblePostIndex].Display();
+            Posts[AvailablePostsIndex].Display();
         }
 
         private void ShowLastPost()
         {
-            Console.WriteLine($"\n    -- Showing {VisiblePost + 1}/" +
+            Console.WriteLine($"\n    -- Showing {AvailablePosts + 1}/" +
                 $"{Posts.Count} posts --");
 
-            Posts[VisiblePost].Display();
+            Posts[AvailablePosts].Display();
         }
 
         private void RepeatFinalPost()
         {
-            if (VisiblePostIndex == Posts.Count - 1)
+            if (AvailablePostsIndex == Posts.Count - 1)
             {
-                VisiblePost = Posts.Count - 1;
+                AvailablePosts = Posts.Count - 1;
 
-                VisiblePostIndex = VisiblePost - 1;
+                AvailablePostsIndex = AvailablePosts - 1;
 
                 ShowLastPost();
 
-                VisiblePostIndex++;
+                AvailablePostsIndex++;
             }
         }
 
         public void ShowNextPost()
         {
-            if (VisiblePostIndex < Posts.Count - 1)
+            if (AvailablePostsIndex < Posts.Count - 1)
             {
-                VisiblePost++;
+                AvailablePosts++;
             }
             else
             {
-                VisiblePostIndex--;
+                AvailablePostsIndex--;
 
                 Console.WriteLine(" -- No posts to display ! --\n"); 
             }
@@ -267,38 +261,54 @@ namespace ConsoleAppProject.App04
 
         private void LikePost(Post post)
         {
-             if (!Likes.Contains(VisiblePostIndex))
-             {
-                    post.Like();
-
-                Console.WriteLine(" -- You liked this post -- ");
-
-                    Likes.Add(VisiblePostIndex);
-             }
-
-             else
-             {
-                    Console.WriteLine(" -- You have already liked this post --\n");
-             }
-            
-        }
-
-        private void UnlikePost(Post post)
-        {
-            if (Likes.Contains(VisiblePostIndex))
+            if (Posts[AvailablePostsIndex].Username == NetworkApp.CurrentUser)
             {
-                post.Unlike();
-
-                Console.WriteLine("  -- You unliked this post --\n");
-
-                int like = Likes.FindIndex(x => x == VisiblePostIndex);
-
-                Likes.RemoveAt(like);
+                Console.Write(" ===== You can't like your own posts ====== \n");
             }
 
             else
             {
-                Console.WriteLine("  -- You haven't liked this post yet --\n");
+                if (!Likes.Contains(AvailablePostsIndex))
+                {
+                    post.Like();
+
+                    Console.Write(" ===== You liked this post ====== \n");
+
+                    Likes.Add(AvailablePostsIndex);
+                }
+
+                else
+                {
+                    Console.Write(" ===== You've liked this post already ====== \n");
+                }
+            }
+
+        }
+
+        private void UnlikePost(Post post)
+        {
+            if (Posts[AvailablePostsIndex].Username == NetworkApp.CurrentUser)
+            {
+                Console.Write(" ===== You cannot like your own posts  ====== \n");
+            }
+
+            else
+            {
+                if (Likes.Contains(AvailablePostsIndex))
+                {
+                    post.Unlike();
+
+                    Console.Write(" ===== You unliked this post ====== \n");
+
+                    int like = Likes.FindIndex(x => x == AvailablePostsIndex);
+
+                    Likes.RemoveAt(like);
+                }
+
+                else
+                {
+                    Console.Write(" ===== You didn't like this post ====== \n");
+                }
             }
         }
 
@@ -310,19 +320,30 @@ namespace ConsoleAppProject.App04
 
             Console.Clear();
 
-            ExitLoop = true;
+            StopLoop = true;
         }
 
         private void RemovePost()
         {
-             Posts.RemoveAt(VisiblePostIndex);
+            if (Posts[AvailablePostsIndex].Username == NetworkApp.CurrentUser)
+            {
+                Posts.RemoveAt(AvailablePostsIndex);
 
-             Console.WriteLine( "    -- Post removed --\n");
-           
-             if (Posts.Count == 1)
-             {
-                 RemoveAllPosts();
-             }
+                Console.Write(" ===== Post removed ====== \n");
+            }
+
+            else
+            {
+                if (Posts.Count == 1)
+                {
+                    RemoveAllPosts();
+                }
+
+                else
+                {
+                    Console.Write(" ===== Only the user can remove this post ====== \n");
+                }
+            }
 
         }
     

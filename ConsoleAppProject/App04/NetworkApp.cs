@@ -11,91 +11,133 @@ namespace ConsoleAppProject.App04
 {
     public class NetworkApp : NewsFeed 
     {
-        public const int MaxLength = 69;
-
-        public const int MinLength = 1;
+        public static string CurrentUser { get; set; }
 
         private char input;
 
-        public const string AllowedChars = @"^[0-9a-zA-Z!@#$%&*()_\-+={[}\]|:;'<,>.?~` ]*$"; 
+        public NewsFeed news = new NewsFeed();
+
+        public int SearchPosts { get; set; }
+
+        public const int MaxLength = 50;
+
+        public const int MinLength = 1;
 
         private bool postNow = false;
 
+
+        public const string AllowedChars = @"^[0-9a-zA-Z!@#$%&*()_\-+={[}\]|:;'<,>.?~` ]*$";
+
+        
         public void Run()
         {
             DisplayMenu();
         }
 
-        private NewsFeed news = new NewsFeed();
-
-        public int SearchPosts { get; private set; }
-
         public void DisplayMenu()
         {
-            Console.WriteLine(" Entwan's News feed");
+            
+
+            Console.WriteLine("===== Enkh-Amgalan Enkhbayar's newsfeed =====");
 
             string[] choices = new string[]
             {
                 "Post Message", "Post Image",
                 "Display All Posts", "Display by Author", "Display by Date",
-                "See Menu", "Quit"
+                "Logout", "Quit"
             };
 
             bool wantToQuit = false;
+
+            Newuser();
+
             do
             {
-                int choice = ConsoleHelper.SelectChoice(choices);
+
+                Console.WriteLine(" ======  Main Menu  ====== ");
+
+                Console.WriteLine($"-- Logged in as: {CurrentUser} --\n");
+
                 
+
+                int choice = ConsoleHelper.SelectChoice(choices);
+
+                postNow = false;
+
                 switch (choice)
                 {
-                    case 1: PostLimitedMessage(); break;
+                    case 1: PostMessage(); break;
+
                     case 2: PostImage(); break;
+
                     case 3: DisplayAll(); break;
+
                     case 4:
-                        Console.Write(" Enter author name:  ");
+                        Console.Write("\n Enter author name > ");
+
                         Search = Console.ReadLine();
+
                         DisplayByAuthor(Search);
+
                         break;
 
                     case 5:
-                        Console.Write(" Enter the year:  ");
+                        Console.Write("\n Enter year > ");
+
                         Search = Console.ReadLine();
+
                         DisplayByDate(Search);
+
                         break;
 
                     case 6: DisplayMenu(); break;
-                    case 7: wantToQuit = true; break;
-                    default: break;
 
+                    case 7: wantToQuit = true; break;
+
+                    default: break;
                 }
-            } while (wantToQuit);   
+
+            } while (!wantToQuit);
         }
 
-        private void DisplayAll()
+        private void Newuser()
+        {
+            Console.Write("\n Enter username > ");
+
+            CurrentUser = Console.ReadLine();
+
+            news.Author = CurrentUser;
+        }
+
+        public void DisplayAll()
         {
             news.Display();
         }
 
         private void PostImage()
         {
-            Console.WriteLine("Enter image file name : ");
+            Console.Write("\n Enter image filename :  ");
+
             string filename = Console.ReadLine();
 
-            Console.WriteLine("Enter caption for the image : ");
+            Console.Write("\n Enter image caption :  ");
+
             string caption = Console.ReadLine();
 
-            PhotoPost photoPost = new PhotoPost("Entwan", filename, caption); 
-            news.AddPhotoPost(photoPost);
+            PhotoPost photopost = new PhotoPost(CurrentUser, filename, caption);
 
-            Console.WriteLine();
-            Console.WriteLine(" Image has posted! ");
+            news.AddPhotoPost(photopost);
 
-            Console.Clear();                                                                                                       
+            Console.Write(" ===== Image has posted! ====== \n");
+
+            Console.Clear();
         }
 
-        private void PostLimitedMessage()
+        private void PostMessage()
         {
-            Console.WriteLine($"    {MaxLength}/{MaxLength} characters " + $"remaining  ");
+            Console.WriteLine($"\n {MaxLength}/{MaxLength} characters " +
+                $"remaining\n");
+
 
             Console.Write($" Type your message > ");
 
@@ -105,9 +147,9 @@ namespace ConsoleAppProject.App04
 
             do
             {
-               
-                if (Convert.ToChar(input) == Convert.ToChar(ConsoleKey.Backspace) &&
-                    message.Length >= MinLength)
+                DetectUserInput();
+
+                if (Convert.ToChar(input) == Convert.ToChar(ConsoleKey.Backspace) && message.Length >= MinLength)
                 {
                     int lastChar = message.Length - 1;
 
@@ -125,37 +167,50 @@ namespace ConsoleAppProject.App04
                     }
                 }
 
-                if (Convert.ToChar(input) == Convert.ToChar(ConsoleKey.Enter) &&
-                    message.Length >= MinLength)
+                if (Convert.ToChar(input) == Convert.ToChar(ConsoleKey.Enter) &&  message.Length >= MinLength)
                 {
                     postNow = true;
                 }
 
                 Console.Clear();
-                Console.WriteLine($"\n {remainingChars}/{MaxLength} characters " +
-                    $"remaining\n");
 
-                Console.Write($" Type your message > {message}");
+
+                Console.WriteLine($"\n {remainingChars}/{MaxLength} characters " + $"remaining\n");
+
+                Console.Write($" Type your message : {message}");
 
             } while (postNow == false);
 
             if (message.Length <= MaxLength)
             {
-                MessagePost post = new MessagePost("Entwan", message);
+                MessagePost post = new MessagePost(CurrentUser, message);
 
                 news.AddMessagePost(post);
 
                 Console.WriteLine();
-                Console.WriteLine(" Message has posted! ");
+
+                Console.WriteLine( " ===== Your message has posted ! =====\n");
+
                 Console.Clear();
             }
 
             else
             {
-                Console.WriteLine($" Message should be Max {MaxLength} characters in total");
+
+
+                Console.WriteLine($"\n -- Message must be {MaxLength} characters " + $"or less --\n0)");
+
                 postNow = false;
-                PostLimitedMessage();
+
+                PostMessage();
             }
+        }
+
+        public char DetectUserInput()
+        {
+            input = Console.ReadKey().KeyChar;
+
+            return input;
         }
 
         private void DisplayResults(int i, Post post)
@@ -172,13 +227,16 @@ namespace ConsoleAppProject.App04
             {
                 Console.WriteLine(" -- End of the posts -- ");
             }
+
+            
+
         }
 
         public void DisplayByAuthor(String author)
         {
             if (news.Posts.Count == 0)
             {
-                Console.WriteLine("There is no posts available. ");
+                Console.Write(" ===== No posts to show ====== \n");
 
                 Console.Clear();
             }
@@ -212,7 +270,7 @@ namespace ConsoleAppProject.App04
 
                 else
                 {
-                    Console.WriteLine("No posts. ");
+                    Console.Write(" ===== Can't find any posts ====== \n");
 
                     Console.Clear();
                 }
@@ -224,7 +282,7 @@ namespace ConsoleAppProject.App04
         {
             if (news.Posts.Count == 0)
             {
-                Console.WriteLine("\n    -- No posts to display --\n");
+                Console.Write(" ===== No posts to show ====== \n");
 
             }
 
@@ -256,7 +314,8 @@ namespace ConsoleAppProject.App04
 
                 else
                 {
-                    Console.WriteLine(" -- No posts found -- ");
+                    Console.Write(" ===== Can't find any posts ====== \n");
+
                     Console.Clear();
                 }
             }

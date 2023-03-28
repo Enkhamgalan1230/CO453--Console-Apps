@@ -9,8 +9,17 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace ConsoleAppProject.App04
 {
-    public class NetworkApp : NewsFeed 
+    
+    /// <summary>
+    /// This class enherits to newsfeed class
+    /// this class is responsible for most features of the app
+    /// 
+    /// </summary>
+    public class NetworkApp : NewsFeed
     {
+
+        // CONSTANTS AND ARRAYS DECLARED HERE 
+        //
         public static string CurrentUser { get; set; }
 
         private char input;
@@ -19,7 +28,7 @@ namespace ConsoleAppProject.App04
 
         public int SearchPosts { get; set; }
 
-        public const int MaxLength = 50;
+        public const int MaxLength = 69;
 
         public const int MinLength = 1;
 
@@ -28,15 +37,22 @@ namespace ConsoleAppProject.App04
 
         public const string AllowedChars = @"^[0-9a-zA-Z!@#$%&*()_\-+={[}\]|:;'<,>.?~` ]*$";
 
-        
+        // I USED THIS METHOD FOR PROGRAM.CS TO RUN THIS APP
         public void Run()
         {
             DisplayMenu();
         }
 
+        /// <summary>
+        /// Menu of choices for a newsfeed app 
+        /// The method then enters a do-while loop that repeatedly displays the menu,
+        /// prompts the user for input, and executes the user's selected choice
+        /// until the user decides to quit.
+        /// 
+        /// </summary>
         public void DisplayMenu()
         {
-            
+
 
             Console.WriteLine("===== Enkh-Amgalan Enkhbayar's newsfeed =====");
 
@@ -56,12 +72,15 @@ namespace ConsoleAppProject.App04
 
                 Console.WriteLine(" ======  Main Menu  ====== ");
 
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine($"-- Logged in as: {CurrentUser} --\n");
+                Console.ForegroundColor = ConsoleColor.Green;
 
-                
 
                 int choice = ConsoleHelper.SelectChoice(choices);
 
+                // executes a switch statement based on the value of "choice".
+                // (postnow boolean variable)
                 postNow = false;
 
                 switch (choice)
@@ -100,9 +119,13 @@ namespace ConsoleAppProject.App04
             } while (!wantToQuit);
         }
 
+        // Asks for name from user and holds the name in current user variable
+        // so i can use it for searching post by author/user
         private void Newuser()
         {
-            Console.Write("\n Enter username > ");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("\n Enter username > ");
+            Console.ForegroundColor = ConsoleColor.Green;
 
             CurrentUser = Console.ReadLine();
 
@@ -114,8 +137,10 @@ namespace ConsoleAppProject.App04
             news.Display();
         }
 
+
         private void PostImage()
         {
+            Console.ForegroundColor = ConsoleColor.White;
             Console.Write("\n Enter image filename :  ");
 
             string filename = Console.ReadLine();
@@ -127,8 +152,9 @@ namespace ConsoleAppProject.App04
             PhotoPost photopost = new PhotoPost(CurrentUser, filename, caption);
 
             news.AddPhotoPost(photopost);
-
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.Write(" ===== Image has posted! ====== \n");
+            Console.ForegroundColor = ConsoleColor.Green;
 
             Console.Clear();
         }
@@ -138,8 +164,9 @@ namespace ConsoleAppProject.App04
             Console.WriteLine($"\n {MaxLength}/{MaxLength} characters " +
                 $"remaining\n");
 
-
+            Console.ForegroundColor = ConsoleColor.White;
             Console.Write($" Type your message > ");
+            Console.ForegroundColor = ConsoleColor.Green;
 
             var message = "";
 
@@ -167,7 +194,7 @@ namespace ConsoleAppProject.App04
                     }
                 }
 
-                if (Convert.ToChar(input) == Convert.ToChar(ConsoleKey.Enter) &&  message.Length >= MinLength)
+                if (Convert.ToChar(input) == Convert.ToChar(ConsoleKey.Enter) && message.Length >= MinLength)
                 {
                     postNow = true;
                 }
@@ -188,18 +215,18 @@ namespace ConsoleAppProject.App04
                 news.AddMessagePost(post);
 
                 Console.WriteLine();
-
-                Console.WriteLine( " ===== Your message has posted ! =====\n");
-
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine(" ===== Your message has posted ! =====\n");
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.Clear();
             }
 
             else
             {
 
-
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine($"\n -- Message must be {MaxLength} characters " + $"or less --\n0)");
-
+                Console.ForegroundColor = ConsoleColor.Green;
                 postNow = false;
 
                 PostMessage();
@@ -215,11 +242,11 @@ namespace ConsoleAppProject.App04
 
         private void DisplayResults(int i, Post post)
         {
-           
+
 
             Console.WriteLine($" -- Showing {i}/{SearchPosts} posts --");
 
-            
+
 
             post.Display();
 
@@ -228,7 +255,7 @@ namespace ConsoleAppProject.App04
                 Console.WriteLine(" -- End of the posts -- ");
             }
 
-            
+
 
         }
 
@@ -236,8 +263,9 @@ namespace ConsoleAppProject.App04
         {
             if (news.Posts.Count == 0)
             {
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.Write(" ===== No posts to show ====== \n");
-
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.Clear();
             }
 

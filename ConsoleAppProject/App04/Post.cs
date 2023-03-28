@@ -98,7 +98,10 @@ namespace ConsoleAppProject.App04
 
             if (likes > 0)
             {
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine($"    Likes:  {likes}  people like this.");
+                Console.ForegroundColor = ConsoleColor.Green;
+
             }
             else
             {
@@ -107,11 +110,15 @@ namespace ConsoleAppProject.App04
 
             if (comments.Count == 0)
             {
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("    No comments.");
+                Console.ForegroundColor = ConsoleColor.Green;
             }
             else
             {
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine($"    {comments.Count}  comment(s).");
+                Console.ForegroundColor = ConsoleColor.Green;
                 ShowComments();
             }
 
@@ -120,6 +127,7 @@ namespace ConsoleAppProject.App04
 
         private void ShowComments()
         {
+            Console.ForegroundColor = ConsoleColor.Cyan;
             for (int i = 0; i < comments.Count; i++)
             {
                 Console.Write("        \"");
@@ -128,6 +136,7 @@ namespace ConsoleAppProject.App04
 
                 Console.Write("\"\n");
             }
+            Console.ForegroundColor = ConsoleColor.Green;
         }
 
 

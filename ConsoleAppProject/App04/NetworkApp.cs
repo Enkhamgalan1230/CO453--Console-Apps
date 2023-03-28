@@ -54,7 +54,7 @@ namespace ConsoleAppProject.App04
         {
 
 
-            Console.WriteLine("===== Enkh-Amgalan Enkhbayar's newsfeed =====");
+            Console.WriteLine("\n===== Enkh-Amgalan Enkhbayar's newsfeed =====");
 
             string[] choices = new string[]
             {
@@ -70,7 +70,7 @@ namespace ConsoleAppProject.App04
             do
             {
 
-                Console.WriteLine(" ======  Main Menu  ====== ");
+                Console.WriteLine("\n ======  Main Menu  ====== ");
 
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine($"-- Logged in as: {CurrentUser} --\n");
@@ -124,7 +124,7 @@ namespace ConsoleAppProject.App04
         private void Newuser()
         {
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("\n Enter username > ");
+            Console.Write("\n Enter the username :  ");
             Console.ForegroundColor = ConsoleColor.Green;
 
             CurrentUser = Console.ReadLine();
@@ -153,7 +153,7 @@ namespace ConsoleAppProject.App04
 
             news.AddPhotoPost(photopost);
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write(" ===== Image has posted! ====== \n");
+            Console.WriteLine("\n ===== Image has posted! ====== \n");
             Console.ForegroundColor = ConsoleColor.Green;
 
             Console.Clear();
@@ -165,7 +165,7 @@ namespace ConsoleAppProject.App04
                 $"remaining\n");
 
             Console.ForegroundColor = ConsoleColor.White;
-            Console.Write($" Type your message > ");
+            Console.Write($" Type your message :  ");
             Console.ForegroundColor = ConsoleColor.Green;
 
             var message = "";
@@ -224,7 +224,7 @@ namespace ConsoleAppProject.App04
             else
             {
 
-                Console.ForegroundColor = ConsoleColor.White;
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"\n -- Message must be {MaxLength} characters " + $"or less --\n0)");
                 Console.ForegroundColor = ConsoleColor.Green;
                 postNow = false;
@@ -243,16 +243,18 @@ namespace ConsoleAppProject.App04
         private void DisplayResults(int i, Post post)
         {
 
-
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine($" -- Showing {i}/{SearchPosts} posts --");
-
+            Console.ForegroundColor = ConsoleColor.Green;
 
 
             post.Display();
 
             if (i == SearchPosts)
             {
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine(" -- End of the posts -- ");
+                Console.ForegroundColor = ConsoleColor.Green;
             }
 
 
@@ -263,7 +265,7 @@ namespace ConsoleAppProject.App04
         {
             if (news.Posts.Count == 0)
             {
-                Console.ForegroundColor = ConsoleColor.White;
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write(" ===== No posts to show ====== \n");
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Clear();
@@ -298,8 +300,9 @@ namespace ConsoleAppProject.App04
 
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.Write(" ===== Can't find any posts ====== \n");
-
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.Clear();
                 }
             }

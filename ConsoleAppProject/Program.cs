@@ -39,7 +39,7 @@ namespace ConsoleAppProject
             Console.WriteLine(" 2. BMI Calculator ");
             Console.WriteLine(" 3. Student Grades ");
             Console.WriteLine(" 4. Social Network ");
-            Console.WriteLine("\t");
+            Console.WriteLine(" ");
             Console.Write("Answer : ");
             string choiceStr = Console.ReadLine();
             int choice = 0;

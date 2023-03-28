@@ -79,7 +79,9 @@ namespace ConsoleAppProject.App04
         {
             if (Posts.Count == 0)
             {
-                Console.WriteLine("  No posts to display   "); 
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\n  No posts to display   ");
+                Console.ForegroundColor = ConsoleColor.Green;
 
                 Console.Clear();
             }
@@ -116,13 +118,13 @@ namespace ConsoleAppProject.App04
 
                     string[] choices = new string[]
                     {
-                      " 1. Like \n",
-                      " 2. Unlike \n",
-                      " 3. Remove this post \n",
-                      " 4. Remove all posts \n",
-                      " 5. Comment on this post \n",
-                      " 6. Next post \n",
-                      " 7. Main Menu \n"
+                      " Like \n",
+                      " Unlike \n",
+                      " Remove this post \n",
+                      " Remove all posts \n",
+                      " Comment on this post \n",
+                      " Next post \n",
+                      " Main Menu \n"
                     };
 
                     int choice = ConsoleHelper.SelectChoice(choices);
@@ -181,8 +183,9 @@ namespace ConsoleAppProject.App04
                     if (StopLoop && NoPosts)
                     {
                         AvailablePosts = 0;
-
-                        Console.WriteLine(" ===== All posts removed =====\n");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("\n ===== All posts removed =====\n");
+                        Console.ForegroundColor = ConsoleColor.Green;
 
                         Console.WriteLine();
 
@@ -207,16 +210,17 @@ namespace ConsoleAppProject.App04
 
         private void ShowPost()
         {
-            Console.WriteLine($"\n    -- Showing {AvailablePosts + 1}/" +  $"{Posts.Count} posts --");
-
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"\n   ==== Showing {AvailablePosts + 1}/" +  $"{Posts.Count} posts ====");
+            Console.ForegroundColor = ConsoleColor.Green;
             Posts[AvailablePostsIndex].Display();
         }
 
         private void ShowLastPost()
         {
-            Console.WriteLine($"\n    -- Showing {AvailablePosts + 1}/" +
-                $"{Posts.Count} posts --");
-
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"\n   ==== Showing {AvailablePosts + 1}/" + $"{Posts.Count} posts ====");
+            Console.ForegroundColor = ConsoleColor.Green;
             Posts[AvailablePosts].Display();
         }
 
@@ -243,27 +247,32 @@ namespace ConsoleAppProject.App04
             else
             {
                 AvailablePostsIndex--;
-
-                Console.WriteLine(" -- No posts to display ! --\n"); 
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\n ==== No posts to display ! ====\n");
+                Console.ForegroundColor = ConsoleColor.Green;
             }
         }
 
         public static void AddComment(Post post)
         {
-            Console.Write("\n    Enter comment > ");
+            Console.Write("\n    Enter comment :  ");
 
             string text = Console.ReadLine();
 
             post.AddComment(text);
 
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("\n    -- Comment added --\n");
+            Console.ForegroundColor = ConsoleColor.Green;
         }
 
         private void LikePost(Post post)
         {
             if (Posts[AvailablePostsIndex].Username == NetworkApp.CurrentUser)
             {
-                Console.Write(" ===== You can't like your own posts ====== \n");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("\n ===== You can't like your own posts ====== \n");
+                Console.ForegroundColor = ConsoleColor.Green;
             }
 
             else
@@ -271,15 +280,17 @@ namespace ConsoleAppProject.App04
                 if (!Likes.Contains(AvailablePostsIndex))
                 {
                     post.Like();
-
-                    Console.Write(" ===== You liked this post ====== \n");
-
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("\n ===== You liked this post ====== \n");
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Likes.Add(AvailablePostsIndex);
                 }
 
                 else
                 {
-                    Console.Write(" ===== You've liked this post already ====== \n");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("\n ===== You've liked this post already ====== \n");
+                    Console.ForegroundColor = ConsoleColor.Green;
                 }
             }
 
@@ -289,7 +300,9 @@ namespace ConsoleAppProject.App04
         {
             if (Posts[AvailablePostsIndex].Username == NetworkApp.CurrentUser)
             {
-                Console.Write(" ===== You cannot like your own posts  ====== \n");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("\n ===== You cannot like your own posts  ====== \n");
+                Console.ForegroundColor = ConsoleColor.Green;
             }
 
             else
@@ -297,8 +310,9 @@ namespace ConsoleAppProject.App04
                 if (Likes.Contains(AvailablePostsIndex))
                 {
                     post.Unlike();
-
-                    Console.Write(" ===== You unliked this post ====== \n");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("\n ===== You unliked this post ====== \n");
+                    Console.ForegroundColor = ConsoleColor.Green;
 
                     int like = Likes.FindIndex(x => x == AvailablePostsIndex);
 
@@ -307,7 +321,9 @@ namespace ConsoleAppProject.App04
 
                 else
                 {
-                    Console.Write(" ===== You didn't like this post ====== \n");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("\n ===== You didn't like this post ====== \n");
+                    Console.ForegroundColor = ConsoleColor.Green;
                 }
             }
         }
@@ -315,10 +331,10 @@ namespace ConsoleAppProject.App04
         private void RemoveAllPosts()
         {
             Posts = new List<Post>();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("\n  ==== All posts removed ==== \n");
+            Console.ForegroundColor = ConsoleColor.Green;
 
-            Console.WriteLine("   -- All posts removed -- \n");
-
-            Console.Clear();
 
             StopLoop = true;
         }
@@ -328,8 +344,9 @@ namespace ConsoleAppProject.App04
             if (Posts[AvailablePostsIndex].Username == NetworkApp.CurrentUser)
             {
                 Posts.RemoveAt(AvailablePostsIndex);
-
-                Console.Write(" ===== Post removed ====== \n");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write("\n ===== Post removed ====== \n");
+                Console.ForegroundColor = ConsoleColor.Green;
             }
 
             else
@@ -341,7 +358,9 @@ namespace ConsoleAppProject.App04
 
                 else
                 {
-                    Console.Write(" ===== Only the user can remove this post ====== \n");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("\n ===== Only the user can remove this post ====== \n");
+                    Console.ForegroundColor = ConsoleColor.Green;
                 }
             }
 

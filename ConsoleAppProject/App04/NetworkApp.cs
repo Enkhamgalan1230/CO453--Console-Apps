@@ -11,7 +11,7 @@ namespace ConsoleAppProject.App04
 {
     
     /// <summary>
-    /// This class enherits to newsfeed class
+    /// This class inherits to newsfeed class
     /// this class is responsible for most features of the app
     /// 
     /// </summary>
@@ -26,7 +26,7 @@ namespace ConsoleAppProject.App04
 
         public NewsFeed news = new NewsFeed();
 
-        public int SearchPosts { get; set; }
+        public int PostCounter { get; set; }
 
         public const int MaxLength = 69;
 
@@ -137,7 +137,11 @@ namespace ConsoleAppProject.App04
             news.Display();
         }
 
-
+        /// <summary>
+        /// This method will allow users to post images
+        /// User's two inputs will be held in two Arrays which is 
+        /// in Photopost.cs class.
+        /// </summary>
         private void PostImage()
         {
             Console.ForegroundColor = ConsoleColor.White;
@@ -158,7 +162,16 @@ namespace ConsoleAppProject.App04
 
             Console.Clear();
         }
-
+        /// <summary>
+        /// In this method User will be able to post a message.
+        /// I saw a interesting idea from Sihan which was not just using string
+        /// but using Chars and then turning into string. 
+        /// So i will be able to calculate maximum characters available.
+        /// Everytime when char is entered the counter goes down by one 
+        /// however it does right opposite when user press backspace
+        /// Also it loops and clears the console because it prints everytime when 
+        /// new Char is entered. 
+        /// </summary>
         private void PostMessage()
         {
             Console.WriteLine($"\n {MaxLength}/{MaxLength} characters " +
@@ -172,10 +185,13 @@ namespace ConsoleAppProject.App04
 
             int remainingChars = MaxLength;
 
+            // Keep prompting the user until they post their message.
             do
             {
                 DetectUserInput();
 
+                // If the user presses the backspace key and the message is longer than the minimum length,
+                // remove the last character from the message and increase the remaining characters.
                 if (Convert.ToChar(input) == Convert.ToChar(ConsoleKey.Backspace) && message.Length >= MinLength)
                 {
                     int lastChar = message.Length - 1;
@@ -184,7 +200,7 @@ namespace ConsoleAppProject.App04
 
                     remainingChars++;
                 }
-
+                // If the user types an allowed character, add it to the message and decrease the remaining characters.
                 else
                 {
                     if (Regex.IsMatch(input.ToString(), AllowedChars))
@@ -193,6 +209,7 @@ namespace ConsoleAppProject.App04
                         remainingChars--;
                     }
                 }
+                // If the user presses the enter key and the message is longer than the minimum length, set the postNow to true.
 
                 if (Convert.ToChar(input) == Convert.ToChar(ConsoleKey.Enter) && message.Length >= MinLength)
                 {
@@ -201,13 +218,15 @@ namespace ConsoleAppProject.App04
 
                 Console.Clear();
 
-
+                // Display the number of remaining characters.
                 Console.WriteLine($"\n {remainingChars}/{MaxLength} characters " + $"remaining\n");
 
+                // Display the message with the remaining characters.
                 Console.Write($" Type your message : {message}");
 
             } while (postNow == false);
 
+            // Create a new message
             if (message.Length <= MaxLength)
             {
                 MessagePost post = new MessagePost(CurrentUser, message);
@@ -220,7 +239,7 @@ namespace ConsoleAppProject.App04
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Clear();
             }
-
+            // Printing error message if input is more than allowed characters 
             else
             {
 
@@ -232,7 +251,7 @@ namespace ConsoleAppProject.App04
                 PostMessage();
             }
         }
-
+        // Detects user input and returns the key character.
         public char DetectUserInput()
         {
             input = Console.ReadKey().KeyChar;
@@ -240,17 +259,19 @@ namespace ConsoleAppProject.App04
             return input;
         }
 
+        // PRINTING ALL THE POSTS TO THE NEWSFEED
+        //
         private void DisplayResults(int i, Post post)
         {
 
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine($" -- Showing {i}/{SearchPosts} posts --");
+            Console.WriteLine($" -- Showing {i}/{PostCounter} posts --");
             Console.ForegroundColor = ConsoleColor.Green;
 
 
             post.Display();
 
-            if (i == SearchPosts)
+            if (i == PostCounter)
             {
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine(" -- End of the posts -- ");
@@ -261,8 +282,13 @@ namespace ConsoleAppProject.App04
 
         }
 
+        /// <summary>
+        /// This method takes in an author's name as a parameter and displays all posts made by that author.
+        /// </summary>
+        /// <param name="author"></param>
         public void DisplayByAuthor(String author)
         {
+            // If there is no posts to show, shows error message
             if (news.Posts.Count == 0)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -271,19 +297,21 @@ namespace ConsoleAppProject.App04
                 Console.Clear();
             }
 
+                // If there are posts, initialize a counter for the number of posts made by the author
+                // Iterate through all posts in the list and increment the counter if the author matches
             else
             {
-                SearchPosts = 0;
+                PostCounter = 0;
 
                 foreach (Post post in news.Posts.ToList())
                 {
                     if (post.Username.ToString() == author)
                     {
-                        SearchPosts++;
+                        PostCounter++;
                     }
                 }
-
-                if (SearchPosts > 0)
+                // If the counter is greater than zero, display all posts made by the author
+                if (PostCounter > 0)
                 {
                     int i = 0;
 
@@ -297,7 +325,7 @@ namespace ConsoleAppProject.App04
                         }
                     }
                 }
-
+                // If counter is zero, display error message
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Cyan;
@@ -308,9 +336,14 @@ namespace ConsoleAppProject.App04
             }
         }
 
-
+        /// <summary>
+        /// This method takes in an date as a parameter and displays all posts made during that period
+        /// And do same proccess as the find by author method does 
+        /// </summary>
+        /// <param name="date"></param>
         public void DisplayByDate(String date)
         {
+            // check if there are any posts
             if (news.Posts.Count == 0)
             {
                 Console.Write(" ===== No posts to show ====== \n");
@@ -319,17 +352,17 @@ namespace ConsoleAppProject.App04
 
             else
             {
-                SearchPosts = 0;
+                PostCounter = 0;
 
                 foreach (Post post in news.Posts.ToList())
                 {
                     if (post.Timestamp.Year.ToString() == date)
                     {
-                        SearchPosts++;
+                        PostCounter++;
                     }
                 }
 
-                if (SearchPosts > 0)
+                if (PostCounter > 0)
                 {
                     int i = 0;
 

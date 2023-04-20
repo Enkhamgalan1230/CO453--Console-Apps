@@ -294,7 +294,7 @@ namespace ConsoleAppProject.App04
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write(" ===== No posts to show ====== \n");
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.Clear();
+                //Console.Clear();
             }
 
                 // If there are posts, initialize a counter for the number of posts made by the author
@@ -331,7 +331,7 @@ namespace ConsoleAppProject.App04
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.Write(" ===== Can't find any posts ====== \n");
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Clear();
+                    //Console.Clear();
                 }
             }
         }
@@ -380,7 +380,7 @@ namespace ConsoleAppProject.App04
                 {
                     Console.Write(" ===== Can't find any posts ====== \n");
 
-                    Console.Clear();
+                    //Console.Clear();
                 }
             }
         }

@@ -14,7 +14,7 @@ namespace ConsoleAppProject.App06
     {
         /// <summary>
         /// *******************************************************
-        /// 
+        /// im not gon do this 
         /// *******************************************************
         /// </summary>
         public static void DrawScissors(int x, int y)

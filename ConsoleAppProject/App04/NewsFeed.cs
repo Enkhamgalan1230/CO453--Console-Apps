@@ -84,7 +84,7 @@ namespace ConsoleAppProject.App04
                 Console.WriteLine("\n  No posts to display   ");
                 Console.ForegroundColor = ConsoleColor.Green;
 
-                Console.Clear();
+                //Console.Clear();
             }
             else
             {
